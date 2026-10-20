@@ -37,7 +37,7 @@ export default function QuotePage() {
             <ol className="mt-6 space-y-4">
               {next.map((n, i) => (
                 <li key={n} className="flex gap-4 text-ink-700">
-                  <span className="font-display text-sm font-bold text-sun-600">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-display text-sm font-bold text-sun-700">{String(i + 1).padStart(2, "0")}</span>
                   {n}
                 </li>
               ))}

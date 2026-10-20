@@ -27,7 +27,7 @@ export const services: Service[] = [
     slug: "residential-solar-solutions",
     name: "Residential Solar Solutions",
     title: "Residential solar solutions in Karachi",
-    metaTitle: "Home Solar Panel Installation in Karachi | Residential Solar",
+    metaTitle: "Home Solar Panel Installation in Karachi",
     metaDescription:
       "On-grid, off-grid and hybrid solar systems for homes in Karachi, designed around your bills and your load-shedding. Installed and maintained by MAT Energy.",
     summary:
@@ -121,7 +121,7 @@ export const services: Service[] = [
     slug: "after-sales-services",
     name: "After Sales Excellence",
     title: "Solar maintenance & after-sales service in Karachi",
-    metaTitle: "Solar Maintenance, Cleaning & Repair in Karachi | After-Sales",
+    metaTitle: "Solar Panel Maintenance & Repair in Karachi",
     metaDescription:
       "Solar panel cleaning, system checks, repairs and fast support in Karachi. MAT Energy's after-sales service keeps your system performing for the long term.",
     summary:

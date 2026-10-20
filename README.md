@@ -18,7 +18,7 @@ npm run build && npm start   # production
 | `RESEND_API_KEY` | Resend API key used by `/api/lead` |
 | `RESEND_FROM_EMAIL` | Sender address on a Resend-verified domain (default `MAT Energy <noreply@matenergy.com.pk>`) |
 | `ADMIN_EMAILS` | Comma-separated recipients for lead notifications |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site URL (default `https://matenergy.com.pk`) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL (default `https://www.matenergy.com.pk`) |
 | `GOOGLE_SITE_VERIFICATION` | Optional Search Console token |
 | `NEXT_PUBLIC_GA_ID` | Google Analytics tag ID (default `GT-NB3V57Q2`, production only; empty disables) |
 | `INDEXNOW_KEY` | IndexNow key, served at `/indexnow-key.txt` (`openssl rand -hex 16`) |
@@ -83,5 +83,5 @@ It saves the files into `public/partners/` and `public/images/site/` (see `scrip
 - `vercel.json` runs a cron every Monday at 03:17 UTC that calls `/api/indexnow/`, which submits every sitemap URL to IndexNow (Bing, Yandex, Seznam, Naver…). The endpoint requires `Authorization: Bearer $CRON_SECRET`; to submit right after publishing changes run:
 
   ```bash
-  curl -H "Authorization: Bearer $CRON_SECRET" https://matenergy.com.pk/api/indexnow/
+  curl -H "Authorization: Bearer $CRON_SECRET" https://www.matenergy.com.pk/api/indexnow/
   ```

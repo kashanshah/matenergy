@@ -6,6 +6,7 @@ import {
   AboutSection,
   MethodologySection,
   PartnersSection,
+  ProjectsSection,
   StatsStrip,
   SystemsSection,
   TestimonialsSection,
@@ -79,6 +80,7 @@ export default function HomePage() {
       </section>
 
       <SystemsSection />
+      <ProjectsSection />
       <AboutSection />
       <TestimonialsSection />
       <WhyUsSection />

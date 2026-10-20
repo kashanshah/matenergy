@@ -3,7 +3,7 @@ import { sitemapEntries } from "@/lib/sitemap-entries";
 
 // Called by the Vercel cron in vercel.json. Vercel sends `Authorization: Bearer $CRON_SECRET`.
 // Can also be triggered by hand after publishing content:
-//   curl -H "Authorization: Bearer $CRON_SECRET" https://matenergy.com.pk/api/indexnow/
+//   curl -H "Authorization: Bearer $CRON_SECRET" https://www.matenergy.com.pk/api/indexnow/
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;
   if (!secret || request.headers.get("authorization") !== `Bearer ${secret}`) {

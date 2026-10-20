@@ -7,6 +7,7 @@ import { services } from "@/lib/services";
 const company = [
   { href: "/about/", label: "About Us" },
   { href: "/solar-systems/", label: "Solar Systems" },
+  { href: "/projects/", label: "Projects" },
   { href: "/partners/", label: "Partners" },
   { href: "/solar-calculator/", label: "Savings Calculator" },
   { href: "/faqs/", label: "FAQs" },
@@ -24,6 +25,7 @@ export function Footer() {
             alt={`${site.name} logo`}
             width={1087}
             height={354}
+            sizes="172px"
             className="h-14 w-auto"
           />
           <p className="mt-5 max-w-sm leading-7 text-ink-500">
@@ -91,7 +93,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-ink-100">
-        <div className="container-x flex flex-col gap-2 py-6 text-xs text-ink-400 sm:flex-row sm:justify-between">
+        <div className="container-x flex flex-col gap-2 py-6 text-xs text-ink-500 sm:flex-row sm:justify-between">
           <p>© {site.legalName} All rights reserved.</p>
           <p>{site.tagline}</p>
         </div>

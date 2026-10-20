@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMeta({
   title: "Contact MAT Energy | Solar Company in North Nazimabad, Karachi",
   description:
-    `Contact MAT Energy for solar installation in Karachi. Call ${site.phoneDisplay}, email ${site.email} or visit us at ${site.address.full}.`,
+    `Contact MAT Energy for solar installation in Karachi. Call ${site.phoneDisplay}, email ${site.email} or visit our North Nazimabad office.`,
   path: "/contact/",
   absoluteTitle: true,
 });
@@ -36,7 +36,7 @@ export default function ContactPage() {
               <>
                 <c.icon className="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden />
                 <span>
-                  <span className="block text-sm text-ink-400">{c.label}</span>
+                  <span className="block text-sm text-ink-500">{c.label}</span>
                   <span className="block font-semibold text-ink-900">{c.value}</span>
                 </span>
               </>

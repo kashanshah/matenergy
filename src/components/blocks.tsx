@@ -16,7 +16,7 @@ export function ServiceList({ items, headingLevel = "h3" }: { items: Service[]; 
             href={`/services/${s.slug}/`}
             className="group grid gap-4 py-8 sm:grid-cols-[4rem_1fr_auto] sm:items-start sm:gap-8"
           >
-            <span className="font-display text-sm font-bold text-sun-600">{String(i + 1).padStart(2, "0")}</span>
+            <span className="font-display text-sm font-bold text-sun-700">{String(i + 1).padStart(2, "0")}</span>
             <div>
               <Heading className="text-2xl font-bold group-hover:text-brand-700">{s.name}</Heading>
               <p className="mt-3 max-w-2xl leading-7 text-ink-600">{s.summary}</p>

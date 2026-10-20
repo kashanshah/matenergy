@@ -30,9 +30,9 @@ const nextConfig: NextConfig = {
       ["/service/expert-solar-worker", "/about/"],
       ["/service/modern-technology", "/about/"],
       ["/service/:slug*", "/services/"],
-      ["/our-installations", "/about/"],
-      ["/portfolio/:slug*", "/about/"],
-      ["/portfolio-category/:slug*", "/about/"],
+      ["/our-installations", "/projects/"],
+      ["/portfolio/:slug*", "/projects/"],
+      ["/portfolio-category/:slug*", "/projects/"],
       ["/team/:slug*", "/about/"],
       ["/about-us", "/about/"],
       ["/contact-us", "/contact/"],
@@ -48,6 +48,12 @@ const nextConfig: NextConfig = {
       // Pages removed from this rebuild.
       ["/blog/:slug*", "/"],
       ["/solar-installation-karachi/:slug*", "/services/"],
+      ["/services/residential-solar-karachi", "/services/residential-solar-solutions/"],
+      ["/services/commercial-industrial-solar-karachi", "/services/commercial-solar-solutions/"],
+      ["/services/energy-audit", "/services/home-energy-audits/"],
+      ["/services/solar-maintenance-after-sales", "/services/after-sales-services/"],
+      ["/services/hybrid-off-grid-solar-battery", "/solar-systems/"],
+      ["/services/net-metering-karachi", "/services/"],
     ];
     return map.flatMap(([source, destination]) => [
       { source, destination, permanent: true },

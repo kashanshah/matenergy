@@ -3,6 +3,7 @@ import { Check, Quote } from "lucide-react";
 import { about, methodology, stats, testimonials, whyUs, type Testimonial } from "@/lib/company";
 import { hasPublicFile, photos, type PhotoKey } from "@/lib/media";
 import { partners, type Partner } from "@/lib/partners";
+import { projects, type Project } from "@/lib/projects";
 import { systems, type SolarSystem } from "@/lib/systems";
 import { SectionHeading, TextLink } from "./ui";
 
@@ -98,6 +99,52 @@ export function SystemsSection() {
   );
 }
 
+export function ProjectCard({ project, headingLevel = "h3" }: { project: Project; headingLevel?: "h2" | "h3" }) {
+  const Heading = headingLevel;
+  const [cover] = project.photos;
+  return (
+    <article className="flex flex-col">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-ink-100">
+        <Image src={cover.src} alt={cover.alt} fill sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+      </div>
+      <p className="mt-5 text-sm font-semibold text-brand-700">
+        {project.type} · {project.location}
+      </p>
+      <Heading className="mt-1.5 text-xl font-bold">{project.title}</Heading>
+      <ul className="mt-3 space-y-1.5 text-sm text-ink-600">
+        {project.equipment.map((e) => (
+          <li key={e} className="flex gap-2.5">
+            <Check className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
+            {e}
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+export function ProjectsSection({ limit = 3 }: { limit?: number }) {
+  return (
+    <section className="border-t border-ink-100 py-20 sm:py-24">
+      <div className="container-x">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading
+            kicker="Recent projects"
+            title="Solar systems we've installed in Karachi"
+            intro="Homes, farmhouses and businesses across the city, from 10 kW rooftops to a 275 kW industrial plant."
+          />
+          <TextLink href="/projects/">See all projects</TextLink>
+        </div>
+        <div className="mt-12 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+          {projects.slice(0, limit).map((p) => (
+            <ProjectCard key={p.slug} project={p} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function WhyUsSection() {
   return (
     <section className="container-x grid gap-12 py-20 sm:py-24 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
@@ -129,7 +176,7 @@ export function MethodologySection() {
         <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
           {methodology.steps.map((s, i) => (
             <li key={s.title} className="border-l-2 border-ink-200 pl-5 lg:border-l-0 lg:border-t-2 lg:pl-0 lg:pt-5">
-              <span className="font-display text-sm font-bold text-sun-600">Step {i + 1}</span>
+              <span className="font-display text-sm font-bold text-sun-700">Step {i + 1}</span>
               <h3 className="mt-2 text-lg font-bold">{s.title}</h3>
               <p className="mt-2 text-sm leading-6 text-ink-600">{s.text}</p>
             </li>

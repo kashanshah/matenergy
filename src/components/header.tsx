@@ -42,6 +42,7 @@ export function Header() {
               width={1087}
               height={354}
               priority
+              sizes="148px"
               className="h-11 w-auto sm:h-12"
             />
           </Link>
@@ -68,7 +69,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <Link
               href="/get-a-quote/"
-              className="hidden rounded-md bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 sm:inline-flex"
+              className="hidden rounded-md bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800 sm:inline-flex"
             >
               Get a Quote
             </Link>
@@ -105,7 +106,7 @@ export function Header() {
               <Link
                 href="/get-a-quote/"
                 onClick={() => setOpen(false)}
-                className="rounded-md bg-brand-600 px-6 py-3.5 text-center font-semibold text-white"
+                className="rounded-md bg-brand-700 px-6 py-3.5 text-center font-semibold text-white"
               >
                 Get a quote
               </Link>

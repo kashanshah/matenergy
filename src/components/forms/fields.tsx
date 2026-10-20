@@ -21,10 +21,10 @@ export function Field({
     <div>
       <label htmlFor={name} className="label">
         {label}
-        {required && <span className="text-sun-600"> *</span>}
+        {required && <span className="text-sun-700"> *</span>}
       </label>
       {children}
-      {hint && !error && <p className="mt-1.5 text-xs text-ink-400">{hint}</p>}
+      {hint && !error && <p className="mt-1.5 text-xs text-ink-500">{hint}</p>}
       {error && (
         <p id={`${name}-error`} className="mt-1.5 text-sm text-red-600">
           {error[0]}
@@ -51,7 +51,7 @@ export function SubmitButton({ submitting, children }: { submitting: boolean; ch
     <button
       type="submit"
       disabled={submitting}
-      className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-600 px-6 py-3 font-semibold text-white transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+      className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-700 px-6 py-3 font-semibold text-white transition hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
     >
       {submitting && <Loader2 className="size-4 animate-spin" aria-hidden />}
       {submitting ? "Sending…" : children}

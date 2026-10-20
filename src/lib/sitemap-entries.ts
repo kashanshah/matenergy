@@ -14,6 +14,7 @@ export function sitemapEntries(): SitemapEntry[] {
     { path: "/", priority: 1, changeFrequency: "weekly" },
     { path: "/services/", priority: 0.9, changeFrequency: "monthly" },
     { path: "/solar-systems/", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/projects/", priority: 0.8, changeFrequency: "monthly" },
     { path: "/get-a-quote/", priority: 0.8, changeFrequency: "yearly" },
     { path: "/solar-calculator/", priority: 0.8, changeFrequency: "monthly" },
     { path: "/about/", priority: 0.7, changeFrequency: "yearly" },

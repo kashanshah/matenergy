@@ -6,7 +6,7 @@ import { MethodologySection, SystemsSection } from "@/components/sections";
 import { services } from "@/lib/services";
 
 export const metadata: Metadata = pageMeta({
-  title: "Solar Services in Karachi | Residential, Commercial, Audits & Maintenance",
+  title: "Solar Installation & Maintenance Services in Karachi",
   description:
     "Residential and commercial solar installation, home energy audits and after-sales maintenance across Karachi by MAT Energy.",
   path: "/services/",

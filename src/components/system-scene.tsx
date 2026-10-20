@@ -7,12 +7,13 @@ import { useEffect, useRef, useState } from "react";
 export type SceneStep = { title: string; text: string; image: { src: string; alt: string } };
 
 /**
- * One sticky full-bleed scene. As the reader scrolls, the active statement steps down the stack and the
- * photograph behind it crossfades to the matching installation (the page's signature move).
+ * Side by side: the statements scroll down the left column while the photograph on the right stays
+ * pinned beside them and crossfades to the matching installation (the page's signature move).
+ * On a phone each statement carries its own photograph instead.
  */
 export function SystemScene({ heading, steps }: { heading: string; steps: SceneStep[] }) {
   const [active, setActive] = useState(0);
-  const markers = useRef<(HTMLDivElement | null)[]>([]);
+  const blocks = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -21,41 +22,20 @@ export function SystemScene({ heading, steps }: { heading: string; steps: SceneS
           if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.step));
         }
       },
-      { rootMargin: "-50% 0px -50% 0px" },
+      { rootMargin: "-45% 0px -45% 0px" },
     );
-    markers.current.forEach((m) => m && observer.observe(m));
+    blocks.current.forEach((b) => b && observer.observe(b));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="relative bg-ink-900" style={{ height: `${steps.length * 65 + 20}svh` }} aria-label={heading}>
-      <div className="sticky top-0 h-svh overflow-hidden">
-        {steps.map((s, i) => (
-          <Image
-            key={s.image.src}
-            src={s.image.src}
-            alt={s.image.alt}
-            fill
-            sizes="100vw"
-            className={`object-cover transition-opacity duration-[1600ms] ease-in-out ${i === active ? "opacity-100" : "opacity-0"}`}
-          />
-        ))}
-        {/* A neutral scrim behind the text only: the upper part on desktop, the lower part on a phone. */}
-        <div className="absolute inset-x-0 bottom-0 bg-ink-900/85 sm:bottom-auto sm:top-0">
-          <div className="container-x py-10 sm:py-14">
-            <h2 className="title-head text-white">{heading}</h2>
-            <ol className="mt-8 grid gap-x-10 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
-              {steps.map((s, i) => (
-                <li key={s.title} className="transition-transform duration-500" style={{ transform: i === active ? "translateY(-4px)" : "none" }}>
-                  <p className={`font-display text-lead font-bold uppercase leading-none ${i === active ? "text-sun-300" : "text-ink-200"}`}>
-                    {s.title}
-                  </p>
-                  <p className={`mt-2 max-w-[34ch] ${i === active ? "block" : "hidden sm:block"} ${i === active ? "text-white" : "text-ink-300"}`}>
-                    {s.text}
-                  </p>
-                </li>
-              ))}
-            </ol>
+    <section className="bg-ink-900 text-white" aria-labelledby="scene-heading">
+      <div className="lg:grid lg:grid-cols-2">
+        <div className="container-x py-24 sm:py-32 lg:mx-0 lg:max-w-none lg:px-10 xl:px-16">
+          <div data-reveal>
+            <h2 id="scene-heading" className="title-head text-white">
+              {heading}
+            </h2>
             <Link
               href="/solar-systems/"
               className="mt-8 inline-block font-semibold text-white underline decoration-2 underline-offset-[6px] hover:text-brand-200"
@@ -63,20 +43,48 @@ export function SystemScene({ heading, steps }: { heading: string; steps: SceneS
               Compare the three systems
             </Link>
           </div>
+          <div className="mt-16 space-y-16 lg:mt-0 lg:space-y-0">
+            {steps.map((s, i) => (
+              <div
+                key={s.title}
+                ref={(el) => {
+                  blocks.current[i] = el;
+                }}
+                data-step={i}
+                className="lg:flex lg:min-h-[70svh] lg:items-center"
+              >
+                <div data-reveal>
+                  <div className="relative mb-6 aspect-[4/3] overflow-hidden lg:hidden">
+                    <Image src={s.image.src} alt={s.image.alt} fill sizes="100vw" className="object-cover" />
+                  </div>
+                  <h3
+                    className={`text-head uppercase leading-[0.9] transition-colors duration-500 ${
+                      i === active ? "lg:text-sun-300" : "lg:text-white"
+                    } text-white`}
+                  >
+                    {s.title}
+                  </h3>
+                  <p className="mt-5 max-w-[40ch] text-lead leading-[1.35] text-ink-100">{s.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="relative hidden lg:block">
+          <div className="sticky top-18 h-[calc(100svh-4.5rem)] overflow-hidden">
+            {steps.map((s, i) => (
+              <Image
+                key={s.image.src}
+                src={s.image.src}
+                alt={i === active ? s.image.alt : ""}
+                fill
+                sizes="50vw"
+                className={`object-cover transition-opacity duration-[1600ms] ease-in-out ${i === active ? "opacity-100" : "opacity-0"}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
-      {steps.map((_, i) => (
-        <div
-          key={i}
-          ref={(el) => {
-            markers.current[i] = el;
-          }}
-          data-step={i}
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0"
-          style={{ top: `${i * 65}svh`, height: "65svh" }}
-        />
-      ))}
     </section>
   );
 }

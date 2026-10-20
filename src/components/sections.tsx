@@ -56,7 +56,7 @@ export function AboutSection({ link = true }: { link?: boolean }) {
           </TextLink>
         )}
       </div>
-      <Photo name="about" className="aspect-[4/5] lg:col-span-6 lg:col-start-7" sizes="(min-width: 1024px) 50vw, 100vw" />
+      <Photo name="about" className="aspect-[4/3] lg:col-span-6 lg:col-start-7" sizes="(min-width: 1024px) 50vw, 100vw" />
     </section>
   );
 }
@@ -65,7 +65,7 @@ export function SystemColumn({ system, headingLevel = "h3" }: { system: SolarSys
   const Heading = headingLevel;
   return (
     <div className="flex flex-col" data-reveal>
-      <Photo name={system.id} className="mb-6 aspect-[4/5]" sizes="(min-width: 1024px) 30vw, 100vw" />
+      <Photo name={system.id} className="mb-6 aspect-[4/3]" sizes="(min-width: 1024px) 30vw, 100vw" />
       <Heading className="text-lead uppercase leading-none">{system.name}</Heading>
       <p className="mt-3">{system.summary}</p>
       <ul className="mt-5 space-y-2 text-ink-700">
@@ -106,7 +106,7 @@ export function ProjectCard({ project, headingLevel = "h3" }: { project: Project
   const [cover] = project.photos;
   return (
     <article className="flex flex-col" data-reveal>
-      <div className="relative aspect-[4/5] overflow-hidden bg-surface">
+      <div className="relative aspect-[4/3] overflow-hidden bg-surface">
         <Image src={cover.src} alt={cover.alt} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
       </div>
       <Heading className="mt-5 text-lead uppercase leading-none">{project.title}</Heading>
@@ -185,7 +185,7 @@ export function MethodologySection() {
 export function TestimonialQuote({ t, dark = false }: { t: Testimonial; dark?: boolean }) {
   return (
     <figure className="flex flex-col" data-reveal>
-      <blockquote className={`flex-1 text-lead font-medium leading-[1.3] ${dark ? "text-white" : "text-ink-900"}`}>
+      <blockquote className={`flex-1 font-medium ${t.quote.length > 160 ? "" : "text-lead leading-[1.3]"} ${dark ? "text-white" : "text-ink-900"}`}>
         &ldquo;{t.quote}&rdquo;
       </blockquote>
       <figcaption className={`mt-6 ${dark ? "text-brand-100" : "text-ink-700"}`}>

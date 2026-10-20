@@ -48,17 +48,10 @@ export function HomeHero() {
   );
 }
 
-const serviceLabels: Record<string, string> = {
-  "residential-solar-solutions": "Homes",
-  "commercial-solar-solutions": "Business",
-  "home-energy-audits": "Energy audits",
-  "after-sales-services": "After-sales",
-};
-
 const servicePhotos: Record<string, { src: string; alt: string }> = {
   "residential-solar-solutions": {
-    src: img("karachi-10kw-elevated-rooftop"),
-    alt: "Rows of panels on an elevated frame with a walkway on a Karachi rooftop",
+    src: img("karachi-10kw-rooftop-panels"),
+    alt: "Rooftop panels on a Karachi home",
   },
   "commercial-solar-solutions": { src: img("karachi-10kw-panel-array"), alt: "A sunlit array of solar panels on a rooftop" },
   "home-energy-audits": {
@@ -71,251 +64,193 @@ const servicePhotos: Record<string, { src: string; alt: string }> = {
   },
 };
 
-/** Four services as one folded band of photographs at unequal widths. */
-export function ServiceBand() {
-  const grow = [5, 2, 3, 2];
+/** A photograph in the site's one frame: inside the margins, 4:3, square corners, no overlays. */
+function Frame({ src, alt, sizes, ratio = "aspect-[4/3]", hover = false }: { src: string; alt: string; sizes: string; ratio?: string; hover?: boolean }) {
   return (
-    <section className="pt-28 sm:pt-40">
-      <div className="container-x" data-reveal>
-        <h2 className="title-head lg:ml-[16.66%]">What we do</h2>
+    <span className={`relative block overflow-hidden bg-surface ${ratio}`}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        quality={85}
+        className={`object-cover ${hover ? "transition duration-700 group-hover:scale-[1.03]" : ""}`}
+      />
+    </span>
+  );
+}
+
+const quarter = "(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 92vw";
+const third = "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw";
+const half = "(min-width: 1024px) 45vw, 92vw";
+
+/** The four services side by side, each a photograph with its name and summary beneath. */
+export function ServiceBand() {
+  return (
+    <section className="container-x pt-28 sm:pt-40">
+      <div className="flex flex-wrap items-end justify-between gap-6" data-reveal>
+        <h2 className="title-head">What we do</h2>
+        <TextLink href="/services/">All services</TextLink>
       </div>
-      <div className="mt-12 grid h-[84svh] grid-cols-[64fr_36fr] grid-rows-2 sm:mt-16 lg:flex lg:h-[68svh]">
-        {services.map((s, i) => {
+      <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+        {services.map((s) => {
           const photo = servicePhotos[s.slug];
           return (
-            <Link
-              key={s.slug}
-              href={`/services/${s.slug}/`}
-              className={`group relative overflow-hidden transition-[flex-grow] duration-500 ease-out lg:hover:!grow-[6] ${
-                i === 2 ? "col-start-1 row-start-2 max-lg:col-span-1" : ""
-              } ${i === 1 ? "max-lg:col-start-2" : ""} ${i === 3 ? "max-lg:col-start-2 max-lg:row-start-2" : ""}`}
-              style={{ flexGrow: grow[i], flexBasis: 0 }}
-            >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                sizes="(min-width: 1024px) 45vw, 64vw"
-                className="object-cover transition duration-700 group-hover:scale-[1.03]"
-              />
-              <span className="absolute left-0 top-0 max-w-[90%] bg-ink-900/80 px-5 py-4 font-display text-lead font-bold uppercase leading-none text-white transition group-hover:bg-brand-800">
-                {serviceLabels[s.slug] ?? s.name}
-              </span>
-            </Link>
+            <article key={s.slug} data-reveal>
+              <Link href={`/services/${s.slug}/`} className="group block">
+                <Frame src={photo.src} alt={photo.alt} sizes={quarter} hover />
+                <h3 className="mt-5 text-lead uppercase leading-none transition group-hover:text-brand-700">{s.name}</h3>
+              </Link>
+              <p className="mt-3 text-ink-700">{s.summary}</p>
+            </article>
           );
         })}
       </div>
-      <p className="container-x mt-5 max-w-[70ch]">
-        Home systems, commercial and industrial plants, energy audits before you buy, and cleaning and repairs after.{" "}
-        <Link href="/services/" className="font-semibold text-brand-700 underline decoration-2 underline-offset-4">
-          All services
-        </Link>
-      </p>
     </section>
   );
 }
 
-/** Projects placed one at a time down the page, each at its own size and side. */
-const placements = [
-  { box: "lg:col-span-7 lg:col-start-1", ratio: "aspect-[3/2]" },
-  { box: "ml-auto w-[68%] lg:col-span-4 lg:col-start-9 lg:ml-0 lg:w-auto lg:-mt-[12vh]", ratio: "aspect-[4/5]" },
-  { box: "w-[82%] lg:col-span-8 lg:col-start-4 lg:w-auto", ratio: "aspect-[16/9]" },
-];
-
-export function ProjectScatter() {
+/** Six installations on an even three-column grid. */
+export function ProjectGrid() {
   return (
     <section className="container-x pt-28 sm:pt-44">
       <div className="flex flex-wrap items-end justify-between gap-6" data-reveal>
-        <h2 className="title-head">Projects</h2>
+        <div>
+          <h2 className="title-head">Projects</h2>
+          <p className="mt-6 max-w-[48ch] text-lead leading-[1.35]">From 6 kW homes to a 275 kW plant at FB Industries.</p>
+        </div>
         <TextLink href="/projects/">All projects</TextLink>
       </div>
-      <div className="mt-16 grid gap-y-[72px] lg:grid-cols-12 lg:gap-x-8 lg:gap-y-[10vh]">
-        {projects.map((p, i) => {
-          const place = placements[i % placements.length];
-          return (
-            <div key={p.slug} className="contents">
-              {i === 2 && (
-                <p className="max-w-[24ch] font-display text-lead font-bold uppercase leading-[1.05] lg:col-span-4 lg:col-start-2 lg:self-center" data-reveal>
-                  From 6 kW homes to a 275 kW plant at FB Industries.
-                </p>
-              )}
-              <article className={place.box} data-reveal>
-                <p className="mb-2 font-semibold text-ink-700">
-                  {p.size} kW {p.type.toLowerCase()} · {p.location}
-                </p>
-                <Link href={`/projects/#${p.slug}`} className={`group relative block overflow-hidden bg-surface ${place.ratio}`}>
-                  <Image
-                    src={p.photos[0].src}
-                    alt={p.photos[0].alt}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 90vw"
-                    className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                </Link>
-                <p className="mt-3 max-w-[48ch]">
-                  {p.title}. {p.equipment.slice(0, 2).join(", ")}.
-                </p>
-              </article>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-/** Three stages of a job, their photographs falling down a diagonal. */
-export function ProcessDiagonal() {
-  const [survey, plan, , execution, reports] = methodology.steps;
-  const stages = [
-    {
-      lead: "First, a site survey.",
-      text: `${survey.text} We look at the roof, the shading and the structure before anything is priced.`,
-      photo: { src: img("gulistan-e-johar-25kw-distribution-board"), alt: "Distribution board wiring checked on site" },
-      box: "lg:col-span-5 lg:col-start-1 aspect-[3/4]",
-      textBox: "lg:col-span-3 lg:col-start-6",
-    },
-    {
-      lead: "Then a plan and a proposal.",
-      text: `${plan.text} The final proposal comes to you for approval, itemised.`,
-      photo: { src: img("karachi-10kw-growatt-inverter"), alt: "A Growatt inverter mounted on a wall" },
-      box: "lg:col-span-4 lg:col-start-5 lg:mt-[120px] aspect-square w-[62%] ml-auto lg:ml-0 lg:w-auto",
-      textBox: "lg:col-span-3 lg:col-start-10 lg:mt-[120px] lg:self-center",
-    },
-    {
-      lead: "Then the installation, reported daily.",
-      text: `${execution.text} ${reports.text}`,
-      photo: { src: img("karachi-10kw-elevated-rooftop"), alt: "A finished elevated rooftop array" },
-      box: "lg:col-span-6 lg:col-start-7 lg:mt-[100px] aspect-[16/10] w-[78%] lg:w-auto",
-      textBox: "lg:col-span-4 lg:col-start-2 lg:row-start-3 lg:mt-[100px] lg:self-center",
-    },
-  ];
-  return (
-    <section className="container-x pt-28 sm:pt-44">
-      <div className="grid gap-y-14 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0">
-        <div className="lg:col-span-4 lg:col-start-6 lg:row-start-1 lg:self-start" data-reveal>
-          <h2 className="title-head">How a job runs</h2>
-          <p className="mt-6 max-w-[44ch]">{methodology.intro}</p>
-        </div>
-        {stages.map((s, i) => (
-          <div key={s.lead} className="contents">
-            <div
-              className={`relative overflow-hidden ${s.box} ${i === 0 ? "lg:row-start-1" : i === 1 ? "lg:row-start-2" : "lg:row-start-3"}`}
-              data-reveal
-            >
-              <Image src={s.photo.src} alt={s.photo.alt} fill sizes="(min-width: 1024px) 40vw, 80vw" className="object-cover" />
-            </div>
-            <p
-              className={`max-w-[36ch] text-body ${s.textBox} ${i === 0 ? "lg:row-start-1 lg:self-end" : i === 1 ? "lg:row-start-2" : ""}`}
-              data-reveal
-            >
-              <strong className="font-semibold">{s.lead}</strong> {s.text}
-            </p>
-          </div>
+      <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p) => (
+          <article key={p.slug} data-reveal>
+            <Link href={`/projects/#${p.slug}`} className="group block">
+              <Frame src={p.photos[0].src} alt={p.photos[0].alt} sizes={third} hover />
+              <h3 className="mt-5 text-lead uppercase leading-none transition group-hover:text-brand-700">
+                {p.size} kW {p.type}, {p.location}
+              </h3>
+            </Link>
+            <p className="mt-2 text-ink-700">{p.equipment.slice(0, 2).join(" · ")}</p>
+          </article>
         ))}
       </div>
     </section>
   );
 }
 
-/** One client's words set directly on a darkened photograph. */
-export function TestimonialPhoto() {
-  const t = testimonials[0];
+/** Three stages of a job, side by side. */
+export function ProcessDiagonal() {
+  const [survey, plan, , execution, reports] = methodology.steps;
+  const stages = [
+    {
+      title: "Site survey",
+      text: `${survey.text} We look at the roof, the shading and the structure before anything is priced.`,
+      photo: { src: img("gulistan-e-johar-25kw-distribution-board"), alt: "Distribution board wiring checked on site" },
+    },
+    {
+      title: "Plan and proposal",
+      text: `${plan.text} The final proposal comes to you for approval, itemised.`,
+      photo: { src: img("karachi-10kw-growatt-inverter"), alt: "A Growatt inverter mounted on a wall" },
+    },
+    {
+      title: "Installation, reported daily",
+      text: `${execution.text} ${reports.text}`,
+      photo: { src: img("karachi-10kw-elevated-rooftop"), alt: "A finished elevated rooftop array" },
+    },
+  ];
   return (
-    <section className="relative mt-28 h-[80svh] overflow-hidden sm:mt-44 sm:h-[90svh]">
-      <Image
-        src={img("karachi-10kw-panel-array")}
-        alt="A rooftop array in full sun"
-        fill
-        sizes="100vw"
-        className="drift object-cover brightness-[0.55]"
-      />
-      <figure className="container-x absolute inset-x-0 bottom-0 grid gap-6 pb-16 lg:grid-cols-12" data-reveal>
-        <blockquote className="max-w-[40ch] text-lead font-medium leading-[1.25] text-white lg:col-span-9">
-          &ldquo;{t.quote.split(". ")[0]}.&rdquo;
-        </blockquote>
-        <figcaption className="self-end text-white lg:col-span-3 lg:text-right">
-          {t.name}, {t.company}
-        </figcaption>
-      </figure>
+    <section className="container-x pt-28 sm:pt-44">
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-8" data-reveal>
+        <h2 className="title-head">How a job runs</h2>
+        <p className="max-w-[52ch]">{methodology.intro}</p>
+      </div>
+      <ol className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-3">
+        {stages.map((s) => (
+          <li key={s.title} data-reveal>
+            <Frame src={s.photo.src} alt={s.photo.alt} sizes={third} />
+            <h3 className="mt-5 text-lead uppercase leading-none">{s.title}</h3>
+            <p className="mt-3 text-ink-700">{s.text}</p>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
 
-/** Practical facts and common questions beside a tall photograph. */
+/** What clients say, beside a photograph, on the deep green field. */
+export function TestimonialPhoto() {
+  const [first, second] = testimonials;
+  return (
+    <section className="mt-28 bg-brand-900 py-24 text-white sm:mt-44 sm:py-32" aria-labelledby="clients-heading">
+      <div className="container-x grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <h2 id="clients-heading" className="title-head text-white" data-reveal>
+            What clients say
+          </h2>
+          <figure className="mt-12" data-reveal>
+            {/* The first sentence of the quote, word for word. */}
+            <blockquote className="max-w-[44ch] text-lead font-medium leading-[1.3] text-white">
+              &ldquo;{first.quote.split(". ")[0]}.&rdquo;
+            </blockquote>
+            <figcaption className="mt-5 text-brand-100">
+              <span className="font-semibold text-white">{first.name}</span>, {first.company}
+            </figcaption>
+          </figure>
+          {second && (
+            <figure className="mt-12" data-reveal>
+              <blockquote className="max-w-[60ch] text-white">&ldquo;{second.quote}&rdquo;</blockquote>
+              <figcaption className="mt-5 text-brand-100">
+                <span className="font-semibold text-white">{second.name}</span>, {second.company}
+              </figcaption>
+            </figure>
+          )}
+        </div>
+        <div className="lg:self-center" data-reveal>
+          <Frame src={img("karachi-10kw-panel-array")} alt="A rooftop array in full sun" sizes={half} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Practical facts on the left, the common questions on the right. */
 export function HomeFaq() {
   return (
-    <section className="bg-surface">
-      <div className="container-x grid gap-14 pb-24 lg:grid-cols-12 lg:gap-8 lg:pb-32">
-        <div className="relative lg:order-2 lg:col-span-6 lg:col-start-7">
-          <div className="relative aspect-[4/5] overflow-hidden lg:-mt-16 lg:aspect-[3/4]">
-            <Image
-              src={img("dha-phase-6-30kw-hybrid-inverters-batteries")}
-              alt="Solis hybrid inverters and Pylontech batteries in DHA Phase 6"
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="absolute -bottom-10 right-4 w-[38%] lg:left-[-40px] lg:right-auto lg:w-[34%]">
-            <div className="relative aspect-square overflow-hidden">
-              <Image
-                src={img("gulshan-e-iqbal-20kw-huawei-inverter")}
-                alt="A Huawei on-grid inverter between its protection boxes"
-                fill
-                sizes="240px"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="pt-16 lg:order-1 lg:col-span-5 lg:pt-28">
-          <div data-reveal>
-            <h2 className="title-head">Before you call</h2>
-            <ul className="mt-8 space-y-1 text-lead leading-[1.4]">
-              <li>Office: {site.address.full}</li>
-              <li>
-                Phone support 24/7:{" "}
-                <a href={site.phoneHref} className="font-semibold text-brand-700 hover:text-brand-900">
-                  {site.phoneDisplay}
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="mt-12">
-            <FaqList faqs={generalFaqs} />
-          </div>
-          <div className="mt-12 flex flex-wrap items-center gap-6">
+    <section className="bg-surface py-24 sm:py-32">
+      <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start" data-reveal>
+          <h2 className="title-head">Before you call</h2>
+          <p className="mt-8 max-w-[40ch]">
+            Office: {site.address.full}
+            <br />
+            Phone support 24/7:{" "}
+            <a href={site.phoneHref} className="font-semibold text-brand-800 hover:text-brand-950">
+              {site.phoneDisplay}
+            </a>
+          </p>
+          <div className="mt-10 flex flex-wrap items-center gap-6">
             <ButtonLink href="/get-a-quote/">Get a quote</ButtonLink>
             <TextLink href="/faqs/">More answers</TextLink>
           </div>
         </div>
+        <div className="lg:col-span-7" data-reveal>
+          <FaqList faqs={generalFaqs} />
+        </div>
       </div>
     </section>
   );
 }
 
-/** Karachi's roofs, and one card for reaching us. */
+/** How to reach us, beside a photograph of Karachi's roofs. */
 export function VisitCard() {
   return (
-    <section className="relative">
-      <div className="relative h-[70svh] overflow-hidden lg:h-svh">
-        <Image
-          src="/images/karachi/karachi-skyline-2025.jpg"
-          alt="Karachi's flat rooftops stretching to the high-rises on the horizon"
-          fill
-          sizes="100vw"
-          className="drift object-cover"
-        />
-      </div>
-      <div className="relative z-10 mx-4 -mt-20 bg-paper p-8 lg:absolute lg:right-16 lg:top-16 lg:mx-0 lg:mt-0 lg:w-[400px]" data-reveal>
-        <h2 className="font-display text-lead font-bold uppercase leading-none">Every roof here can carry panels</h2>
-        <p className="mt-5">
-          {site.address.street}
-          <br />
-          {site.address.locality}, {site.address.city}
+    <section className="container-x grid gap-12 py-24 sm:py-32 lg:grid-cols-12 lg:gap-8">
+      <div className="lg:col-span-5 lg:self-center lg:py-16" data-reveal>
+        <h2 className="title-head">Every roof can go solar</h2>
+        <p className="mt-8 text-lead leading-[1.35]">
+          {site.address.street}, {site.address.locality}, {site.address.city}
         </p>
-        <dl className="mt-5 space-y-1 tabular-nums">
+        <dl className="mt-6 max-w-sm space-y-1 tabular-nums">
           <div className="flex justify-between gap-4">
             <dt>Phone</dt>
             <dd>
@@ -337,9 +272,19 @@ export function VisitCard() {
             </dd>
           </div>
         </dl>
-        <ButtonLink href="/get-a-quote/" className="mt-8 w-full">
+        <ButtonLink href="/get-a-quote/" className="mt-10">
           Book a free site survey
         </ButtonLink>
+      </div>
+      <div className="relative aspect-[16/10] overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-[36rem]" data-reveal>
+        <Image
+          src="/images/karachi/karachi-skyline-2025.jpg"
+          alt="Karachi's flat rooftops stretching to the high-rises on the horizon"
+          fill
+          quality={85}
+          sizes="(min-width: 1024px) 55vw, 92vw"
+          className="object-cover"
+        />
       </div>
     </section>
   );

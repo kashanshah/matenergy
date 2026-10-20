@@ -82,7 +82,7 @@ export default function SolarSystemsPage() {
             </div>
             <Photo
               name={s.id}
-              className={`aspect-[4/5] lg:col-span-6 ${i % 2 ? "lg:order-1 lg:col-start-1" : "lg:col-start-7"}`}
+              className={`aspect-[4/3] lg:col-span-6 ${i % 2 ? "lg:order-1 lg:col-start-1" : "lg:col-start-7"}`}
               sizes="(min-width: 1024px) 50vw, 100vw"
             />
           </div>

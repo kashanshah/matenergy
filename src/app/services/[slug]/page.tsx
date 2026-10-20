@@ -74,7 +74,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <section className="container-x grid gap-14 py-24 sm:py-36 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-6" data-reveal>
           {service.body.map((p) => (
-            <p key={p.slice(0, 24)} className="mb-6 max-w-[60ch] first:text-lead first:leading-[1.35]">
+            <p key={p.slice(0, 24)} className="mb-6 max-w-[60ch]">
               {p}
             </p>
           ))}
@@ -92,22 +92,27 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
       {relevantSystems.length > 0 && (
         <section className="bg-brand-900 py-24 text-white sm:py-36">
-          <div className="container-x">
+          <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
             <SectionHeading
-              className="[&_h2]:text-white"
-              title="Which system is right for you?"
+              className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start [&_h2]:text-white"
+              title="Which system suits you?"
               intro="We install all three types. The right one depends on your bill, your roof and how much backup you need."
             />
-            <ul className="mt-14 space-y-10">
+            <ul className="space-y-10 lg:col-span-6 lg:col-start-7">
               {relevantSystems.map((s) => (
                 <li key={s.id} data-reveal>
-                  <Link href={`/solar-systems/#${s.id}`} className="group inline-flex items-baseline gap-4">
-                    <h3 className="text-head uppercase leading-[0.9] text-white transition group-hover:text-brand-200">
-                      {s.name.replace(" solar system", "")}
-                    </h3>
-                    <ArrowRight className="size-7 shrink-0 text-brand-200 transition group-hover:translate-x-2" aria-hidden />
+                  <Link href={`/solar-systems/#${s.id}`} className="group grid grid-cols-[2fr_3fr] items-center gap-6">
+                    <Photo name={s.id} className="aspect-[4/3]" sizes="(min-width: 1024px) 20vw, 40vw" />
+                    <span>
+                      <span className="flex items-center gap-3">
+                        <h3 className="text-lead uppercase leading-none text-white transition group-hover:text-brand-200">
+                          {s.name.replace(" solar system", "")}
+                        </h3>
+                        <ArrowRight className="size-5 shrink-0 text-brand-200 transition group-hover:translate-x-1" aria-hidden />
+                      </span>
+                      <span className="mt-2 block text-white">{s.summary}</span>
+                    </span>
                   </Link>
-                  <p className="mt-3 max-w-[56ch] text-white">{s.summary}</p>
                 </li>
               ))}
             </ul>

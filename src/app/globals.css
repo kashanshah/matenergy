@@ -134,28 +134,12 @@ html.js [data-reveal].is-in > :nth-child(n + 5) {
   transition-delay: 320ms;
 }
 
-/* Slow drift on large photographs. */
-.drift {
-  animation: drift 26s ease-in-out infinite alternate;
-}
-@keyframes drift {
-  from {
-    transform: scale(1.02);
-  }
-  to {
-    transform: scale(1.08) translate3d(-1.5%, -1%, 0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
   html.js [data-reveal] > * {
     transform: none;
-  }
-  .drift {
-    animation: none;
   }
   *,
   *::before,

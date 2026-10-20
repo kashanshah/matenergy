@@ -33,38 +33,43 @@ export function FaqList({ faqs, withSchema = true }: { faqs: Faq[]; withSchema?:
     <div className="space-y-2">
       {withSchema && <JsonLd data={faqJsonLd(faqs)} />}
       {faqs.map((f) => (
-        <details key={f.q} className="group py-3 [&_summary::-webkit-details-marker]:hidden">
-          <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-6 text-left">
-            <h3 className="font-sans text-lead font-semibold leading-[1.25] tracking-normal transition group-hover:text-brand-700">
+        <details key={f.q} className="group bg-white px-6 py-4 [&_summary::-webkit-details-marker]:hidden">
+          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-6 text-left">
+            <h3 className="font-sans text-body font-semibold leading-snug tracking-normal [text-wrap:pretty] transition group-hover:text-brand-700">
               {f.q}
             </h3>
             <span
               aria-hidden
-              className="relative mt-3 size-4 shrink-0 transition group-open:rotate-45 before:absolute before:left-0 before:top-[7px] before:h-0.5 before:w-4 before:bg-brand-700 after:absolute after:left-[7px] after:top-0 after:h-4 after:w-0.5 after:bg-brand-700"
+              className="relative size-4 shrink-0 transition group-open:rotate-45 before:absolute before:left-0 before:top-[7px] before:h-0.5 before:w-4 before:bg-brand-700 after:absolute after:left-[7px] after:top-0 after:h-4 after:w-0.5 after:bg-brand-700"
             />
           </summary>
-          <p className="mt-3 max-w-[64ch] text-ink-700">{f.a}</p>
+          <p className="mt-2 max-w-[64ch] pb-2 text-ink-700">{f.a}</p>
         </details>
       ))}
     </div>
   );
 }
 
-/** Three installations at unequal widths, each linking to its project. */
+/** Three installations side by side in even frames, each linking to its project. */
 export function WorkStrip({ className = "" }: { className?: string }) {
   const picks = [projects[3], projects[0], projects[4]];
-  const grow = [3, 2, 4];
   return (
-    <div className={`flex h-[38svh] min-h-64 ${className}`}>
-      {picks.map((p, i) => (
-        <Link
-          key={p.slug}
-          href={`/projects/#${p.slug}`}
-          className="group relative overflow-hidden transition-[flex-grow] duration-500 ease-out lg:hover:!grow-[5]"
-          style={{ flexGrow: grow[i], flexBasis: 0 }}
-          aria-label={`${p.size} kW ${p.type.toLowerCase()} system, ${p.location}`}
-        >
-          <Image src={p.photos[0].src} alt={p.photos[0].alt} fill sizes="45vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+    <div className={`container-x grid gap-8 py-16 sm:grid-cols-3 ${className}`}>
+      {picks.map((p) => (
+        <Link key={p.slug} href={`/projects/#${p.slug}`} className="group block">
+          <span className="relative block aspect-[4/3] overflow-hidden">
+            <Image
+              src={p.photos[0].src}
+              alt={p.photos[0].alt}
+              fill
+              quality={85}
+              sizes="(min-width: 640px) 30vw, 92vw"
+              className="object-cover transition duration-700 group-hover:scale-[1.03]"
+            />
+          </span>
+          <span className="mt-3 block font-semibold underline-offset-4 group-hover:underline">
+            {p.size} kW {p.type.toLowerCase()}, {p.location}
+          </span>
         </Link>
       ))}
     </div>

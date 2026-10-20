@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BillSizer } from "@/components/bill-sizer";
 import { SystemScene } from "@/components/system-scene";
-import { HomeFaq, HomeHero, ProcessDiagonal, ProjectScatter, ServiceBand, TestimonialPhoto, VisitCard } from "@/components/home";
+import { HomeFaq, HomeHero, ProcessDiagonal, ProjectGrid, ServiceBand, TestimonialPhoto, VisitCard } from "@/components/home";
 import { PartnersSection } from "@/components/sections";
 import { projects } from "@/lib/projects";
 import { systems } from "@/lib/systems";
@@ -54,7 +54,7 @@ export default function HomePage() {
         projects={projects.map(({ slug, title, size, type, location, photos }) => ({ slug, title, size, type, location, photos }))}
       />
       <ServiceBand />
-      <ProjectScatter />
+      <ProjectGrid />
       <div className="mt-28 sm:mt-44">
         <SystemScene heading="Three ways to go solar" steps={sceneSteps} />
       </div>

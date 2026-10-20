@@ -113,17 +113,23 @@ export function PageHero({
 }) {
   return (
     <section className="bg-surface">
-      <div className="container-x pb-16 pt-10 sm:pb-24 sm:pt-14" data-reveal>
+      <div className="container-x pb-16 pt-10 sm:pb-24 sm:pt-14">
         <Breadcrumbs items={crumbs} />
-        <h1 className="mt-10 max-w-5xl text-head uppercase leading-[0.9] sm:mt-16">{title}</h1>
-        {intro && <p className="mt-8 max-w-[52ch] text-lead leading-[1.35]">{intro}</p>}
-        {children}
-      </div>
-      {photo && (
-        <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[21/9]">
-          <Image src={photo.src} alt={photo.alt} fill priority sizes="100vw" className="drift object-cover" />
+        <div className={`mt-10 grid gap-12 sm:mt-14 ${photo ? "lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-12" : ""}`}>
+          <div data-reveal>
+            <h1 className="max-w-5xl text-head uppercase leading-[0.9]">{title}</h1>
+            {intro && (
+              <p className={`mt-8 max-w-[52ch] ${typeof intro === "string" && intro.length > 160 ? "" : "text-lead leading-[1.35]"}`}>{intro}</p>
+            )}
+            {children}
+          </div>
+          {photo && (
+            <div className="relative aspect-[4/3] overflow-hidden" data-reveal>
+              <Image src={photo.src} alt={photo.alt} fill priority quality={85} sizes="(min-width: 1024px) 45vw, 92vw" className="object-cover" />
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }

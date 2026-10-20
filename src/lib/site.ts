@@ -25,7 +25,7 @@ export const site = {
   hours: "Mon–Sat, 10:00 am – 7:00 pm",
   social: {
     facebook: "",
-    instagram: "",
+    instagram: "https://www.instagram.com/mat.energy/",
     linkedin: "",
   },
 } as const;

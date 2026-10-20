@@ -1,10 +1,17 @@
-import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { services } from "@/lib/services";
 import { areas } from "@/lib/areas";
 import { posts } from "@/lib/posts";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export type SitemapEntry = {
+  url: string;
+  lastModified?: string;
+  changeFrequency: "weekly" | "monthly" | "yearly";
+  priority: number;
+};
+
+/** Every indexable URL on the site. Used by /sitemap.xml and the IndexNow cron. */
+export function sitemapEntries(): SitemapEntry[] {
   const pages: { path: string; priority: number; changeFrequency: "weekly" | "monthly" | "yearly" }[] = [
     { path: "/", priority: 1, changeFrequency: "weekly" },
     { path: "/services/", priority: 0.9, changeFrequency: "monthly" },

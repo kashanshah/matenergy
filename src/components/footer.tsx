@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { AtSign, Clock, Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import { areas } from "@/lib/areas";
@@ -77,6 +77,14 @@ export function Footer() {
                 {site.email}
               </a>
             </li>
+            {site.social.instagram && (
+              <li className="flex gap-3">
+                <AtSign className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-700">
+                  Instagram: mat.energy
+                </a>
+              </li>
+            )}
             <li className="flex gap-3">
               <Clock className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
               {site.hours}

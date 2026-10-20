@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 import type { LeadInput } from "@/lib/lead-schema";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -32,6 +33,10 @@ export function useLeadSubmit() {
         return false;
       }
       setStatus("success");
+      // Conversion event for Google Analytics / Ads (no-op if the tag isn't loaded).
+      if (Array.isArray((window as { dataLayer?: unknown }).dataLayer)) {
+        sendGAEvent("event", "generate_lead", { form_type: payload.formType });
+      }
       return true;
     } catch {
       setError("Network error. Please check your connection or call us directly.");

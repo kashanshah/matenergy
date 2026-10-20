@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -47,6 +48,12 @@ export const metadata: Metadata = {
     : undefined,
 };
 
+// Google tags from the existing site (Site Kit). Set the env var to an empty string to disable one.
+// Only loaded in production so local development doesn't pollute the reports.
+const isProd = process.env.NODE_ENV === "production";
+const gaId = isProd ? (process.env.NEXT_PUBLIC_GA_ID ?? "GT-NB3V57Q2") : "";
+const gtmId = isProd ? (process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-5XTD7HD6") : "";
+
 export const viewport: Viewport = {
   themeColor: "#40b93c",
 };
@@ -54,6 +61,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-PK" className={`${inter.variable} ${jakarta.variable}`}>
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
@@ -69,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <WhatsAppFab />
       </body>
+      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }

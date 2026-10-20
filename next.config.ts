@@ -14,8 +14,22 @@ const nextConfig: NextConfig = {
     },
   },
   async redirects() {
-    // Common slugs from the previous WordPress site, mapped to the new structure.
+    // URLs from the previous WordPress site, mapped to the new structure.
+    // Order matters: specific /service/... slugs must come before the /service/:slug* catch-all.
     const map: [string, string][] = [
+      ["/service/residential-solar-solutions", "/services/residential-solar-karachi/"],
+      ["/service/household-solar-panel", "/services/residential-solar-karachi/"],
+      ["/service/solar-panel-cleaning", "/services/solar-maintenance-after-sales/"],
+      ["/service/solar-energy-distribution", "/services/commercial-industrial-solar-karachi/"],
+      ["/service/expert-installation", "/services/"],
+      ["/service/low-cost-operation", "/services/"],
+      ["/service/expert-solar-worker", "/about/"],
+      ["/service/modern-technology", "/partners/"],
+      ["/service/:slug*", "/services/"],
+      ["/our-installations", "/about/"],
+      ["/portfolio/:slug*", "/about/"],
+      ["/team/:slug*", "/about/"],
+      ["/frequently-asked-questions", "/faqs/"],
       ["/home", "/"],
       ["/about-us", "/about/"],
       ["/contact-us", "/contact/"],
@@ -47,6 +61,8 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // Browsers only apply the sitemap stylesheet when it's served with an XSL/XML type (nosniff is on).
+      { source: "/sitemap.xsl", headers: [{ key: "Content-Type", value: "text/xsl; charset=utf-8" }] },
       {
         source: "/:path*",
         headers: [

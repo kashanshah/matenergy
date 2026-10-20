@@ -5,15 +5,18 @@ import { useEffect, useRef } from "react";
 /**
  * Muted, looping background clip. Shows only the poster when the visitor prefers reduced motion.
  * `eager` is for a clip on the first screen: it loads straight away instead of waiting to be scrolled near.
+ * `smallSrc` is a lighter encode that phones get instead of `src`.
  */
 export function AmbientVideo({
   src,
+  smallSrc,
   poster,
   label,
   className = "",
   eager = false,
 }: {
   src: string;
+  smallSrc?: string;
   poster: string;
   label: string;
   className?: string;
@@ -43,13 +46,15 @@ export function AmbientVideo({
     <video
       ref={ref}
       className={className}
-      src={src}
       poster={poster}
       muted
       loop
       playsInline
       preload={eager ? "auto" : "none"}
       aria-label={label}
-    />
+    >
+      {smallSrc && <source src={smallSrc} type="video/mp4" media="(max-width: 767px)" />}
+      <source src={src} type="video/mp4" />
+    </video>
   );
 }

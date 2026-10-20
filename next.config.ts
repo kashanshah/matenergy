@@ -46,7 +46,6 @@ const nextConfig: NextConfig = {
       ["/after-sales-excellence", "/services/after-sales-services/"],
       ["/category/:slug*", "/"],
       // Pages removed from this rebuild.
-      ["/blog/:slug*", "/"],
       ["/solar-installation-karachi/:slug*", "/services/"],
       ["/services/residential-solar-karachi", "/services/residential-solar-solutions/"],
       ["/services/commercial-industrial-solar-karachi", "/services/commercial-solar-solutions/"],

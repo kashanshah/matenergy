@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 import { nav, site } from "@/lib/site";
 
 // The bar carries five links; the full list lives in the menu.
-const primary = ["/services/", "/projects/", "/solar-systems/", "/solar-calculator/", "/about/"];
+const primary = ["/services/", "/projects/", "/solar-systems/", "/solar-calculator/", "/blog/", "/about/"];
 
 export function Header() {
   const [open, setOpen] = useState(false);

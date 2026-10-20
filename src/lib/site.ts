@@ -38,6 +38,7 @@ export const nav = [
   { href: "/partners/", label: "Partners" },
   { href: "/solar-calculator/", label: "Savings Calculator" },
   { href: "/faqs/", label: "FAQs" },
+  { href: "/blog/", label: "Blog" },
   { href: "/contact/", label: "Contact" },
 ] as const;
 

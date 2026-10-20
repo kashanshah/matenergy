@@ -89,3 +89,18 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+export function articleJsonLd(opts: { title: string; description: string; path: string; date: string; image: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: opts.title,
+    description: opts.description,
+    datePublished: opts.date,
+    dateModified: opts.date,
+    mainEntityOfPage: absoluteUrl(opts.path),
+    image: absoluteUrl(opts.image),
+    author: { "@type": "Organization", name: site.name, url: site.url },
+    publisher: { "@id": businessId },
+  };
+}

@@ -6,6 +6,8 @@ import { ButtonLink, TextLink } from "./ui";
 import { methodology, testimonials } from "@/lib/company";
 import { generalFaqs } from "@/lib/faqs";
 import { projects } from "@/lib/projects";
+import { posts } from "@/lib/posts";
+import { PostCard } from "./post-card";
 import { services } from "@/lib/services";
 import { site } from "@/lib/site";
 
@@ -208,6 +210,23 @@ export function TestimonialPhoto() {
         <div className="lg:self-center" data-reveal>
           <Frame src={img("karachi-10kw-panel-array")} alt="A rooftop array in full sun" sizes={half} />
         </div>
+      </div>
+    </section>
+  );
+}
+
+/** The three latest guides. */
+export function LatestGuides() {
+  return (
+    <section className="container-x pb-28 sm:pb-40">
+      <div className="flex flex-wrap items-end justify-between gap-6" data-reveal>
+        <h2 className="title-head">Solar guides</h2>
+        <TextLink href="/blog/">All guides</TextLink>
+      </div>
+      <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.slice(0, 3).map((p) => (
+          <PostCard key={p.slug} post={p} />
+        ))}
       </div>
     </section>
   );

@@ -16,7 +16,10 @@ export function pageMeta(opts: {
   absoluteTitle?: boolean;
   type?: "website" | "article";
   publishedTime?: string;
+  /** Share image for this page; defaults to the site-wide one. */
+  image?: { url: string; alt: string };
 }): Metadata {
+  const image = opts.image ? { ...opts.image, width: 1200, height: 675 } : ogImage;
   return {
     title: opts.absoluteTitle ? { absolute: opts.title } : opts.title,
     description: opts.description,
@@ -28,14 +31,14 @@ export function pageMeta(opts: {
       title: opts.title,
       description: opts.description,
       url: opts.path,
-      images: [ogImage],
+      images: [image],
       ...(opts.publishedTime ? { publishedTime: opts.publishedTime } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: opts.title,
       description: opts.description,
-      images: [ogImage.url],
+      images: [image.url],
     },
   };
 }

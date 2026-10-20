@@ -10,6 +10,7 @@ const company = [
   { href: "/partners/", label: "Partners" },
   { href: "/solar-calculator/", label: "Savings calculator" },
   { href: "/faqs/", label: "FAQs" },
+  { href: "/blog/", label: "Blog" },
   { href: "/contact/", label: "Contact" },
   { href: "/privacy-policy/", label: "Privacy policy" },
 ];

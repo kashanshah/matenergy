@@ -26,7 +26,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        photo={{ src: "/videos/karachi-rooftop-solar-poster.jpg", alt: "Panels MAT Energy installed on a raised frame above a Karachi roof" }} crumbs={[{ name: "About", path: "/about/" }]} title="About MAT Energy" intro={intro} />
+        photo={{ src: "/images/projects/karachi-10kw-elevated-rooftop.jpg", alt: "An elevated rooftop array with a walkway, installed by MAT Energy" }} crumbs={[{ name: "About", path: "/about/" }]} title="About MAT Energy" intro={intro} />
       <AboutSection link={false} />
       <section className="container-x grid gap-14 pb-28 sm:pb-40 lg:grid-cols-[1fr_1.4fr] lg:items-center lg:gap-16">
         <StatsStrip />

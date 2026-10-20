@@ -6,9 +6,9 @@ import { SolarCalculator } from "@/components/forms/solar-calculator";
 import type { Faq } from "@/lib/services";
 
 export const metadata: Metadata = pageMeta({
-  title: "Solar Savings Calculator Karachi | What Size Solar System Do I Need?",
+  title: "Solar Savings Calculator for Karachi | What Size Do I Need?",
   description:
-    "Free solar calculator for Karachi. Enter your electricity bill to estimate the solar system size, number of panels, roof space and monthly savings for your home or business.",
+    "Free solar calculator for Karachi. Enter your electricity bill to estimate system size, panel count, roof space and monthly savings.",
   path: "/solar-calculator/",
 });
 

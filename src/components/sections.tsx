@@ -129,7 +129,7 @@ export function MethodologySection() {
         <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
           {methodology.steps.map((s, i) => (
             <li key={s.title} className="border-l-2 border-ink-200 pl-5 lg:border-l-0 lg:border-t-2 lg:pl-0 lg:pt-5">
-              <span className="font-display text-sm font-bold text-sun-600">Step {i + 1}</span>
+              <span className="font-display text-sm font-bold text-sun-700">Step {i + 1}</span>
               <h3 className="mt-2 text-lg font-bold">{s.title}</h3>
               <p className="mt-2 text-sm leading-6 text-ink-600">{s.text}</p>
             </li>

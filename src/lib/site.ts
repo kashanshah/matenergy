@@ -2,9 +2,9 @@ export const site = {
   name: "MAT Energy",
   legalName: "MAT Energy (Pvt.) Ltd.",
   tagline: "Adding Green Energy to your Life.",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://matenergy.com.pk").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.matenergy.com.pk").replace(/\/$/, ""),
   description:
-    "MAT Energy delivers on-grid, off-grid and hybrid solar solutions for homes and businesses in Karachi, from home energy audits and installation to after-sales service.",
+    "On-grid, off-grid and hybrid solar for homes and businesses in Karachi, from energy audits and installation to after-sales service by MAT Energy.",
   phone: "+92 307 3144624",
   phoneDisplay: "(+92) 307-3144624",
   phoneHref: "tel:+923073144624",

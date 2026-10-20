@@ -23,7 +23,7 @@ export function YouTubeVideo({ id, title }: { id: string; title: string }) {
           type="button"
           onClick={() => setPlaying(true)}
           className="group absolute inset-0 size-full"
-          aria-label={`Play: ${title}`}
+          aria-label={`Watch our company video: ${title}`}
         >
           <Image
             src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}

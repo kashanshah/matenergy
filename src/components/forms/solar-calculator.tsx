@@ -95,7 +95,7 @@ export function SolarCalculator() {
               onChange={(e) => setTariff(Math.max(0, Number(e.target.value)))}
               className="field max-w-44 py-2"
             />
-            <p className="mt-1.5 text-xs text-ink-400">
+            <p className="mt-1.5 text-xs text-ink-500">
               Your bill total ÷ units consumed, including taxes. Check a recent K-Electric bill.
             </p>
           </div>

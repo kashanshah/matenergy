@@ -6,7 +6,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 type ButtonVariant = "primary" | "outline" | "light";
 
 const buttonStyles: Record<ButtonVariant, string> = {
-  primary: "bg-brand-600 text-white hover:bg-brand-700",
+  primary: "bg-brand-700 text-white hover:bg-brand-800",
   outline: "bg-white text-ink-900 ring-1 ring-inset ring-ink-300 hover:ring-ink-900",
   light: "bg-white text-ink-900 hover:bg-brand-50",
 };

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <WhatsAppFab />
         <MotionRoot />
+        <Analytics />
       </body>
       {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>

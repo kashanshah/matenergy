@@ -11,34 +11,34 @@ import { site } from "@/lib/site";
 
 const img = (name: string) => `/images/projects/${name}.jpg`;
 
-/** Hero: a paper sheet on the left, MAT's own rooftop over Karachi on the right. */
+/** Hero: left-aligned text on a paper sheet, an aerial clip of Karachi's solar rooftops beside it. */
 export function HomeHero() {
   return (
     <section className="grid gap-3 px-3 pb-3 lg:h-[calc(100svh-4.5rem)] lg:grid-cols-2">
       <div className="relative order-1 h-[46svh] overflow-hidden bg-ink-900 lg:order-2 lg:h-auto">
         <AmbientVideo
-          src="/videos/karachi-rooftop-solar.mp4"
-          poster="/videos/karachi-rooftop-solar-poster.jpg"
-          label="Solar panels MAT Energy installed on an elevated frame, overlooking Karachi's rooftops"
+          src="/videos/karachi-rooftops-aerial.mp4"
+          smallSrc="/videos/karachi-rooftops-aerial-720.mp4"
+          poster="/videos/karachi-rooftops-aerial-poster.jpg"
+          label="Aerial view of rooftop solar panels across a Karachi neighbourhood"
           className="absolute inset-0 size-full object-cover"
           eager
         />
-        <div className="absolute inset-x-0 bottom-0 hidden min-h-14 flex-wrap items-center justify-between gap-x-6 bg-paper px-5 py-2 text-small sm:flex">
+        <div className="absolute inset-x-0 bottom-0 hidden min-h-14 flex-wrap items-center justify-between gap-x-6 bg-paper py-2 pl-5 pr-20 text-small sm:flex">
           <a href={site.phoneHref} className="font-semibold hover:text-brand-700">
             Call 24/7 {site.phoneDisplay}
           </a>
           <span className="hidden sm:inline">B-102 Marhaba Heights, North Nazimabad</span>
         </div>
       </div>
-      <div className="order-2 flex flex-col items-center justify-center bg-surface px-6 py-10 text-center sm:py-16 lg:order-1 lg:px-14" data-reveal>
+      <div className="order-2 flex flex-col items-start justify-center bg-surface px-6 py-10 text-left sm:px-10 sm:py-16 lg:order-1 lg:px-16 xl:px-20" data-reveal>
         <h1 className="text-head uppercase leading-[0.88]">
           Solar for
           <br />
           Karachi roofs
         </h1>
-        <p className="mt-7 max-w-[40ch]">
-          We design, install and look after on-grid, hybrid and off-grid systems for homes and factories, raised on
-          steel so the roof stays yours.
+        <p className="mt-7 max-w-[42ch] text-lead leading-[1.35]">
+          On-grid, hybrid and off-grid solar for homes and factories, raised on steel so your roof stays usable.
         </p>
         <ButtonLink href="/get-a-quote/" arrow className="mt-9 w-full sm:w-auto">
           Book a free site survey

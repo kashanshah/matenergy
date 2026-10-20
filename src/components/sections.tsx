@@ -24,12 +24,12 @@ function ListMark() {
 
 export function StatsStrip() {
   return (
-    <dl className="grid gap-10 sm:grid-cols-3" data-reveal>
+    <dl className="space-y-8" data-reveal>
       {stats.map((s) => (
-        <div key={s.label}>
+        <div key={s.label} className="grid grid-cols-[minmax(0,11rem)_1fr] items-center gap-6 sm:grid-cols-[16rem_1fr]">
           <dt className="sr-only">{s.label}</dt>
-          <dd className="font-display text-head font-bold leading-none text-brand-700">{s.value}</dd>
-          <dd className="mt-2 max-w-[22ch]">{s.label}</dd>
+          <dd className="font-display text-head font-bold leading-none text-brand-700 tabular-nums">{s.value}</dd>
+          <dd className="max-w-[24ch]">{s.label}</dd>
         </div>
       ))}
     </dl>

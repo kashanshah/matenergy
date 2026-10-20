@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   // Match the WordPress URL style of the existing site so indexed URLs keep working.
   trailingSlash: true,
+  images: {
+    // Thumbnail for the company video on YouTube.
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
+  },
   turbopack: {
     rules: {
       "*.css": {
@@ -17,42 +21,33 @@ const nextConfig: NextConfig = {
     // URLs from the previous WordPress site, mapped to the new structure.
     // Order matters: specific /service/... slugs must come before the /service/:slug* catch-all.
     const map: [string, string][] = [
-      ["/service/residential-solar-solutions", "/services/residential-solar-karachi/"],
-      ["/service/household-solar-panel", "/services/residential-solar-karachi/"],
-      ["/service/solar-panel-cleaning", "/services/solar-maintenance-after-sales/"],
-      ["/service/solar-energy-distribution", "/services/commercial-industrial-solar-karachi/"],
-      ["/service/expert-installation", "/services/"],
-      ["/service/low-cost-operation", "/services/"],
+      ["/service/residential-solar-solutions", "/services/residential-solar-solutions/"],
+      ["/service/household-solar-panel", "/services/residential-solar-solutions/"],
+      ["/service/solar-energy-distribution", "/services/commercial-solar-solutions/"],
+      ["/service/solar-panel-cleaning", "/services/after-sales-services/"],
+      ["/service/expert-installation", "/about/"],
+      ["/service/low-cost-operation", "/about/"],
       ["/service/expert-solar-worker", "/about/"],
-      ["/service/modern-technology", "/partners/"],
+      ["/service/modern-technology", "/about/"],
       ["/service/:slug*", "/services/"],
       ["/our-installations", "/about/"],
       ["/portfolio/:slug*", "/about/"],
+      ["/portfolio-category/:slug*", "/about/"],
       ["/team/:slug*", "/about/"],
-      ["/frequently-asked-questions", "/faqs/"],
-      ["/home", "/"],
       ["/about-us", "/about/"],
       ["/contact-us", "/contact/"],
-      ["/our-partners", "/partners/"],
-      ["/our-services", "/services/"],
-      ["/residential-solar", "/services/residential-solar-karachi/"],
-      ["/residential", "/services/residential-solar-karachi/"],
-      ["/services/residential-solar", "/services/residential-solar-karachi/"],
-      ["/commercial-solar", "/services/commercial-industrial-solar-karachi/"],
-      ["/commercial", "/services/commercial-industrial-solar-karachi/"],
-      ["/industrial-solar", "/services/commercial-industrial-solar-karachi/"],
-      ["/services/commercial-solar", "/services/commercial-industrial-solar-karachi/"],
-      ["/home-energy-audits", "/services/energy-audit/"],
-      ["/home-energy-audit", "/services/energy-audit/"],
-      ["/energy-audit", "/services/energy-audit/"],
-      ["/after-sales-service", "/services/solar-maintenance-after-sales/"],
-      ["/after-sale-service", "/services/solar-maintenance-after-sales/"],
-      ["/net-metering", "/services/net-metering-karachi/"],
-      ["/quote", "/get-a-quote/"],
-      ["/get-quote", "/get-a-quote/"],
-      ["/request-a-quote", "/get-a-quote/"],
-      ["/faq", "/faqs/"],
-      ["/category/:slug*", "/blog/"],
+      ["/frequently-asked-questions", "/faqs/"],
+      ["/home", "/"],
+      ["/cart", "/"],
+      ["/residential-solar-solutions", "/services/residential-solar-solutions/"],
+      ["/commercial-solar-solutions", "/services/commercial-solar-solutions/"],
+      ["/home-energy-audits", "/services/home-energy-audits/"],
+      ["/after-sales-services", "/services/after-sales-services/"],
+      ["/after-sales-excellence", "/services/after-sales-services/"],
+      ["/category/:slug*", "/"],
+      // Pages removed from this rebuild.
+      ["/blog/:slug*", "/"],
+      ["/solar-installation-karachi/:slug*", "/services/"],
     ];
     return map.flatMap(([source, destination]) => [
       { source, destination, permanent: true },

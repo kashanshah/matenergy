@@ -6,9 +6,9 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
-  title: "Contact Mat Energy | Solar Company in North Nazimabad, Karachi",
+  title: "Contact MAT Energy | Solar Company in North Nazimabad, Karachi",
   description:
-    `Contact Mat Energy for solar installation in Karachi. Call ${site.phoneDisplay}, email ${site.email} or visit us at ${site.address.full}.`,
+    `Contact MAT Energy for solar installation in Karachi. Call ${site.phoneDisplay}, email ${site.email} or visit us at ${site.address.full}.`,
   path: "/contact/",
   absoluteTitle: true,
 });
@@ -18,7 +18,7 @@ const channels = [
   { icon: MessageCircle, label: "WhatsApp", value: site.phoneDisplay, href: site.whatsappHref, external: true },
   { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },
   { icon: MapPin, label: "Visit us", value: site.address.full, href: site.mapsHref, external: true },
-  { icon: Clock, label: "Office hours", value: site.hours },
+  { icon: Clock, label: "Support", value: site.hours },
 ];
 
 export default function ContactPage() {
@@ -26,18 +26,15 @@ export default function ContactPage() {
     <>
       <PageHero
         crumbs={[{ name: "Contact", path: "/contact/" }]}
-        eyebrow="Contact"
-        title="Let's talk about your solar project"
-        intro="Questions about solar, net metering or maintenance? Reach us by phone, WhatsApp or email, or send a message below."
+        title="Get in touch with us"
+        intro="We're just a message away. Call, WhatsApp or email us, or send a message below."
       />
       <section className="container-x grid gap-12 py-16 sm:py-24 lg:grid-cols-[1fr_1.5fr]">
-        <ul className="space-y-4">
+        <ul className="divide-y divide-ink-200 border-y border-ink-200">
           {channels.map((c) => {
             const inner = (
               <>
-                <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
-                  <c.icon className="size-5" aria-hidden />
-                </span>
+                <c.icon className="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden />
                 <span>
                   <span className="block text-sm text-ink-400">{c.label}</span>
                   <span className="block font-semibold text-ink-900">{c.value}</span>
@@ -50,27 +47,27 @@ export default function ContactPage() {
                   <a
                     href={c.href}
                     {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="flex items-center gap-4 rounded-3xl bg-white p-5 ring-1 ring-ink-100 transition hover:ring-brand-300"
+                    className="flex items-start gap-4 py-5 hover:text-brand-700"
                   >
                     {inner}
                   </a>
                 ) : (
-                  <div className="flex items-center gap-4 rounded-3xl bg-white p-5 ring-1 ring-ink-100">{inner}</div>
+                  <div className="flex items-start gap-4 py-5">{inner}</div>
                 )}
               </li>
             );
           })}
         </ul>
-        <div className="rounded-4xl bg-white p-6 shadow-xl shadow-ink-900/5 ring-1 ring-ink-100 sm:p-10">
+        <div className="rounded-lg border border-ink-200 p-6 sm:p-10">
           <h2 className="text-2xl font-bold">Send us a message</h2>
-          <p className="mt-2 text-ink-500">We usually reply within one working day.</p>
+          
           <div className="mt-8">
             <ContactForm />
           </div>
         </div>
       </section>
       <section className="container-x pb-20">
-        <div className="overflow-hidden rounded-4xl ring-1 ring-ink-100">
+        <div className="overflow-hidden rounded-lg border border-ink-200">
           <iframe
             title={`Map showing ${site.name} office`}
             src="https://www.google.com/maps?q=Marhaba+Heights+North+Nazimabad+Karachi&output=embed"

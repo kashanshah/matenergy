@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Check, MapPin } from "lucide-react";
-import { JsonLd, PageHero, SectionHeading } from "@/components/ui";
-import { CtaBand, FaqList, ServiceCard, serviceIcons } from "@/components/blocks";
-import { FactorySolarIllustration, HomeSolarIllustration } from "@/components/illustrations";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink, JsonLd, PageHero, SectionHeading } from "@/components/ui";
+import { CtaBand, FaqList } from "@/components/blocks";
+import { MethodologySection, Photo, TestimonialQuote } from "@/components/sections";
 import { QuoteForm } from "@/components/forms/quote-form";
 import { getService, services } from "@/lib/services";
-import { areas } from "@/lib/areas";
+import { systems } from "@/lib/systems";
+import { testimonials } from "@/lib/company";
+import { generalFaqs } from "@/lib/faqs";
+import type { PhotoKey } from "@/lib/media";
 import { serviceJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/metadata";
+
+const servicePhoto: Record<string, PhotoKey> = {
+  "home-energy-audits": "audit",
+  "after-sales-services": "afterSales",
+};
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -27,139 +35,115 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   const service = getService(slug);
   if (!service) notFound();
 
-  const Icon = serviceIcons[service.icon];
   const path = `/services/${service.slug}/`;
-  const relatedAreas = areas.filter((a) =>
-    service.segment === "both" ? true : service.segment === "industrial" ? a.kind === "industrial" : a.kind === "residential",
-  );
-  const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const testimonial = service.testimonial !== undefined ? testimonials[service.testimonial] : undefined;
+  const faqs = service.faqs.map((i) => generalFaqs[i]);
+  const relevantSystems = systems.filter((s) => service.systems.includes(s.id));
+  const others = services.filter((s) => s.slug !== service.slug);
+  const photo = servicePhoto[service.slug];
 
   return (
     <>
-      <JsonLd data={serviceJsonLd({ name: service.title, description: service.metaDescription, path })} />
+      <JsonLd data={serviceJsonLd({ name: service.name, description: service.metaDescription, path })} />
       <PageHero
         crumbs={[
           { name: "Services", path: "/services/" },
-          { name: service.shortTitle, path },
+          { name: service.name, path },
         ]}
-        eyebrow={service.shortTitle}
         title={service.title}
         intro={service.summary}
       >
         <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            href="#quote"
-            className="inline-flex items-center rounded-full bg-sun-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sun-500/25 hover:bg-sun-600"
-          >
-            Get a free quote
-          </a>
-          <Link
-            href="/solar-calculator/"
-            className="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-900 ring-1 ring-ink-200 hover:ring-brand-400"
-          >
+          <ButtonLink href="#quote" arrow>
+            Get a quote
+          </ButtonLink>
+          <ButtonLink href="/solar-calculator/" variant="outline">
             Estimate your savings
-          </Link>
+          </ButtonLink>
         </div>
       </PageHero>
 
-      <section className="container-x grid gap-14 py-16 sm:py-24 lg:grid-cols-[1.3fr_1fr]">
+      <section className="container-x grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
         <div>
-          {service.intro.map((p) => (
-            <p key={p.slice(0, 32)} className="mb-5 text-lg leading-8 text-ink-600">
+          {service.body.map((p) => (
+            <p key={p.slice(0, 24)} className="mb-5 text-lg leading-8 text-ink-700">
               {p}
             </p>
           ))}
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
-            {service.highlights.map((h) => (
-              <div key={h.title} className="rounded-3xl bg-ink-50 p-6 ring-1 ring-ink-100">
-                <h2 className="text-lg font-bold">{h.title}</h2>
-                <p className="mt-2 leading-7 text-ink-500">{h.text}</p>
-              </div>
-            ))}
-          </div>
+          {photo && <Photo name={photo} className="mt-8 aspect-[16/10]" sizes="(min-width: 1024px) 640px, 100vw" />}
         </div>
-        <aside className="space-y-6">
-          <div className="overflow-hidden rounded-4xl ring-1 ring-ink-100">
-            {service.segment === "industrial" ? (
-              <FactorySolarIllustration className="w-full" />
-            ) : (
-              <HomeSolarIllustration className="w-full" />
-            )}
-          </div>
-          <div className="rounded-4xl bg-white p-7 ring-1 ring-ink-100">
-            <div className="flex items-center gap-3">
-              <span className="grid size-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
-                <Icon className="size-5" aria-hidden />
-              </span>
-              <h2 className="text-lg font-bold">What&apos;s included</h2>
+        <div className="space-y-8">
+          {service.points.map((p) => (
+            <div key={p.title} className="border-t-2 border-brand-500 pt-5">
+              <h2 className="text-xl font-bold">{p.title}</h2>
+              <p className="mt-2 leading-7 text-ink-600">{p.text}</p>
             </div>
-            <ul className="mt-5 space-y-3">
-              {service.includes.map((i) => (
-                <li key={i} className="flex gap-3 text-ink-600">
-                  <Check className="mt-1 size-4 shrink-0 text-brand-500" aria-hidden />
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-4xl bg-sun-50 p-7 ring-1 ring-sun-100">
-            <h2 className="text-lg font-bold">Ideal for</h2>
-            <ul className="mt-4 space-y-2.5">
-              {service.idealFor.map((i) => (
-                <li key={i} className="flex gap-3 text-ink-600">
-                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-sun-500" />
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </aside>
-      </section>
-
-      <section className="bg-ink-50 py-16 sm:py-24">
-        <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.6fr]">
-          <SectionHeading eyebrow="FAQs" title={`${service.shortTitle}: common questions`} />
-          <FaqList faqs={service.faqs} />
+          ))}
         </div>
       </section>
 
-      <section id="quote" className="container-x scroll-mt-32 py-16 sm:py-24">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+      {relevantSystems.length > 0 && (
+        <section className="border-t border-ink-100 bg-ink-50 py-16 sm:py-20">
+          <div className="container-x">
+            <SectionHeading
+              title="Which system is right for you?"
+              intro="We install all three types. The right one depends on your bill, your roof and how much backup you need."
+            />
+            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-ink-200 bg-ink-200 md:grid-cols-3">
+              {relevantSystems.map((s) => (
+                <Link key={s.id} href={`/solar-systems/#${s.id}`} className="group bg-white p-7 hover:bg-brand-50">
+                  <h3 className="flex items-center justify-between gap-3 text-lg font-bold group-hover:text-brand-700">
+                    {s.name}
+                    <ArrowRight className="size-4 text-ink-300 group-hover:text-brand-600" aria-hidden />
+                  </h3>
+                  <p className="mt-2 leading-7 text-ink-600">{s.summary}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {testimonial && (
+        <section className="container-x py-16 sm:py-20">
+          <div className="max-w-3xl">
+            <TestimonialQuote t={testimonial} />
+          </div>
+        </section>
+      )}
+
+      <MethodologySection />
+
+      {faqs.length > 0 && (
+        <section className="border-t border-ink-100 py-16 sm:py-20">
+          <div className="container-x grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <SectionHeading title="Common questions" />
+            <FaqList faqs={faqs} />
+          </div>
+        </section>
+      )}
+
+      <section id="quote" className="scroll-mt-28 border-t border-ink-100 bg-ink-50 py-16 sm:py-20">
+        <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
           <div>
             <SectionHeading
-              eyebrow="Free site survey"
-              title="Get your custom solar proposal"
-              intro="Tell us a little about your property. We'll call to schedule a free survey anywhere in Karachi."
+              title="Request a quote"
+              intro="Tell us a little about your property and we'll call you to discuss it."
             />
-            <h2 className="mt-10 text-sm font-semibold uppercase tracking-wider text-ink-400">Areas we serve</h2>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {relatedAreas.map((a) => (
-                <li key={a.slug}>
-                  <Link
-                    href={`/solar-installation-karachi/${a.slug}/`}
-                    className="inline-flex items-center gap-1 rounded-full bg-ink-50 px-3 py-1.5 text-sm text-ink-600 ring-1 ring-ink-100 hover:text-brand-700"
-                  >
-                    <MapPin className="size-3 text-brand-500" aria-hidden />
-                    {a.name}
+            <h2 className="mt-12 text-sm font-semibold text-ink-900">Other services</h2>
+            <ul className="mt-3 space-y-2">
+              {others.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}/`} className="text-brand-700 hover:underline">
+                    {s.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-4xl bg-white p-6 shadow-xl shadow-ink-900/5 ring-1 ring-ink-100 sm:p-10">
-            <QuoteForm
-              defaultSegment={service.segment === "industrial" ? "Industrial" : "Residential"}
-            />
+          <div className="rounded-lg border border-ink-200 bg-white p-6 sm:p-10">
+            <QuoteForm defaultSegment={service.segment} />
           </div>
-        </div>
-      </section>
-
-      <section className="container-x pb-8">
-        <h2 className="text-2xl font-bold">Related services</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {others.map((s) => (
-            <ServiceCard key={s.slug} service={s} />
-          ))}
         </div>
       </section>
 

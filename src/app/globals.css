@@ -34,9 +34,6 @@
   --color-ink-700: #313d30;
   --color-ink-800: #1f291f;
   --color-ink-900: #121a13;
-
-  --radius-4xl: 2rem;
-  --radius-5xl: 2.5rem;
 }
 
 @layer base {
@@ -65,8 +62,13 @@
   .container-x {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
-  .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700 ring-1 ring-brand-100;
+  /* Small section label: a short rule followed by text. */
+  .kicker {
+    @apply flex items-center gap-3 font-sans text-sm font-semibold tracking-normal text-brand-700;
+  }
+  .kicker::before {
+    content: "";
+    @apply h-0.5 w-6 bg-sun-500;
   }
   .prose-mat p {
     @apply mt-5 leading-8 text-ink-600;
@@ -85,18 +87,11 @@
     @apply absolute left-0 top-2.5 size-2.5 rounded-full bg-brand-500;
   }
   .field {
-    @apply block w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900 shadow-xs transition placeholder:text-ink-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100;
+    @apply block w-full rounded-md border border-ink-200 bg-white px-3.5 py-2.5 text-ink-900 transition placeholder:text-ink-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-100;
   }
   .label {
     @apply mb-1.5 block text-sm font-medium text-ink-800;
   }
-}
-
-.bg-grid {
-  background-image:
-    linear-gradient(to right, rgb(64 185 60 / 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(64 185 60 / 0.07) 1px, transparent 1px);
-  background-size: 44px 44px;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -9,6 +9,7 @@ export function localBusinessJsonLd() {
     "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
     "@id": businessId,
     name: site.name,
+    legalName: site.legalName,
     slogan: site.tagline,
     description: site.description,
     url: site.url,
@@ -30,8 +31,9 @@ export function localBusinessJsonLd() {
       "Solar panel installation",
       "Residential solar systems",
       "Commercial and industrial solar",
-      "Net metering",
-      "Hybrid solar with battery storage",
+      "On-grid, off-grid and hybrid solar systems",
+      "Home energy audits",
+      "Solar maintenance",
     ],
     sameAs: Object.values(site.social).filter(Boolean),
   };
@@ -85,20 +87,5 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
       name: it.name,
       item: absoluteUrl(it.path),
     })),
-  };
-}
-
-export function articleJsonLd(opts: { title: string; description: string; path: string; date: string }) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: opts.title,
-    description: opts.description,
-    datePublished: opts.date,
-    dateModified: opts.date,
-    mainEntityOfPage: absoluteUrl(opts.path),
-    image: absoluteUrl("/images/og-mat-energy.png"),
-    author: { "@type": "Organization", name: site.name, url: site.url },
-    publisher: { "@id": businessId },
   };
 }

@@ -19,7 +19,7 @@ const faqs: Faq[] = [
   },
   {
     q: "Why might my final quote differ from the calculator?",
-    a: "Roof orientation, shading, available space, your daytime vs night-time usage, battery needs and current net-metering rules all affect the final design. The free site survey accounts for all of these.",
+    a: "Roof orientation, shading, available space, your daytime vs night-time usage, battery needs and current net-metering rules all affect the final design. A site survey accounts for all of these.",
   },
   {
     q: "What is a typical cost per unit in Karachi?",
@@ -32,18 +32,17 @@ export default function CalculatorPage() {
     <>
       <PageHero
         crumbs={[{ name: "Solar Savings Calculator", path: "/solar-calculator/" }]}
-        eyebrow="Free tool"
         title="Solar savings calculator for Karachi"
         intro="Find out what size solar system you need and how much you could save, in seconds."
       />
-      <section className="bg-ink-50/60 py-16 sm:py-20">
+      <section className="py-16 sm:py-20">
         <div className="container-x">
           <SolarCalculator />
         </div>
       </section>
-      <section className="container-x py-16 sm:py-24">
+      <section className="container-x border-t border-ink-100 py-16 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
-          <SectionHeading eyebrow="How it works" title="About this estimate" />
+          <SectionHeading title="About this estimate" />
           <FaqList faqs={faqs} />
         </div>
       </section>

@@ -1,10 +1,10 @@
 export const site = {
-  name: "Mat Energy",
-  legalName: "Mat Energy",
+  name: "MAT Energy",
+  legalName: "MAT Energy (Pvt.) Ltd.",
   tagline: "Adding Green Energy to your Life.",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://matenergy.com.pk").replace(/\/$/, ""),
   description:
-    "Mat Energy designs and installs on-grid, hybrid and off-grid solar systems for homes, businesses and factories across Karachi, with net-metering, tier-1 panels and after-sales support.",
+    "MAT Energy delivers on-grid, off-grid and hybrid solar solutions for homes and businesses in Karachi, from home energy audits and installation to after-sales service.",
   phone: "+92 307 3144624",
   phoneDisplay: "(+92) 307-3144624",
   phoneHref: "tel:+923073144624",
@@ -22,7 +22,7 @@ export const site = {
   geo: { latitude: 24.9425, longitude: 67.0377 },
   mapsHref:
     "https://www.google.com/maps/search/?api=1&query=B+102+Marhaba+Heights+North+Nazimabad+Karachi",
-  hours: "Mon–Sat, 10:00 am – 7:00 pm",
+  hours: "Call support 24/7",
   social: {
     facebook: "",
     instagram: "https://www.instagram.com/mat.energy/",
@@ -31,13 +31,12 @@ export const site = {
 } as const;
 
 export const nav = [
-  { href: "/services/residential-solar-karachi/", label: "Residential" },
-  { href: "/services/commercial-industrial-solar-karachi/", label: "Commercial & Industrial" },
-  { href: "/services/", label: "Services" },
-  { href: "/solar-calculator/", label: "Savings Calculator" },
-  { href: "/partners/", label: "Partners" },
   { href: "/about/", label: "About" },
-  { href: "/blog/", label: "Blog" },
+  { href: "/services/", label: "Services" },
+  { href: "/solar-systems/", label: "Solar Systems" },
+  { href: "/partners/", label: "Partners" },
+  { href: "/solar-calculator/", label: "Savings Calculator" },
+  { href: "/faqs/", label: "FAQs" },
   { href: "/contact/", label: "Contact" },
 ] as const;
 

@@ -3,15 +3,16 @@ import type { ComponentProps, ReactNode } from "react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
-type ButtonVariant = "primary" | "sun" | "outline" | "ghost" | "white";
+type ButtonVariant = "primary" | "outline" | "light";
 
 const buttonStyles: Record<ButtonVariant, string> = {
-  primary: "bg-brand-500 text-white shadow-lg shadow-brand-500/25 hover:bg-brand-600",
-  sun: "bg-sun-500 text-white shadow-lg shadow-sun-500/25 hover:bg-sun-600",
-  outline: "bg-white text-ink-900 ring-1 ring-ink-200 hover:ring-brand-400 hover:text-brand-700",
-  ghost: "text-brand-700 hover:text-brand-800",
-  white: "bg-white text-ink-900 hover:bg-brand-50",
+  primary: "bg-brand-600 text-white hover:bg-brand-700",
+  outline: "bg-white text-ink-900 ring-1 ring-inset ring-ink-300 hover:ring-ink-900",
+  light: "bg-white text-ink-900 hover:bg-brand-50",
 };
+
+export const buttonClass = (variant: ButtonVariant = "primary") =>
+  `group inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition ${buttonStyles[variant]}`;
 
 export function ButtonLink({
   variant = "primary",
@@ -21,12 +22,21 @@ export function ButtonLink({
   ...props
 }: ComponentProps<typeof Link> & { variant?: ButtonVariant; arrow?: boolean }) {
   return (
-    <Link
-      {...props}
-      className={`group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${buttonStyles[variant]} ${className}`}
-    >
+    <Link {...props} className={`${buttonClass(variant)} ${className}`}>
       {children}
       {arrow && <ArrowRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden />}
+    </Link>
+  );
+}
+
+export function TextLink({ className = "", children, ...props }: ComponentProps<typeof Link>) {
+  return (
+    <Link
+      {...props}
+      className={`group inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:text-brand-800 ${className}`}
+    >
+      {children}
+      <ArrowRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden />
     </Link>
   );
 }
@@ -41,21 +51,21 @@ export function JsonLd({ data }: { data: object | object[] }) {
 }
 
 export function SectionHeading({
-  eyebrow,
+  kicker,
   title,
   intro,
-  align = "left",
+  className = "",
 }: {
-  eyebrow?: string;
+  kicker?: string;
   title: ReactNode;
   intro?: ReactNode;
-  align?: "left" | "center";
+  className?: string;
 }) {
   return (
-    <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-      <h2 className="mt-4 text-3xl font-bold sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">{title}</h2>
-      {intro && <p className="mt-5 text-lg leading-8 text-ink-500">{intro}</p>}
+    <div className={`max-w-2xl ${className}`}>
+      {kicker && <p className="kicker">{kicker}</p>}
+      <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{title}</h2>
+      {intro && <p className="mt-4 text-lg leading-8 text-ink-500">{intro}</p>}
     </div>
   );
 }
@@ -73,7 +83,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
             <li key={c.path} className="flex items-center gap-1.5">
               {i > 0 && <ChevronRight className="size-3.5 text-ink-300" aria-hidden />}
               {i === all.length - 1 ? (
-                <span aria-current="page" className="font-medium text-ink-700">
+                <span aria-current="page" className="text-ink-700">
                   {c.name}
                 </span>
               ) : (
@@ -91,28 +101,21 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
 
 export function PageHero({
   crumbs,
-  eyebrow,
   title,
   intro,
   children,
 }: {
   crumbs: Crumb[];
-  eyebrow?: string;
   title: ReactNode;
   intro?: ReactNode;
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-ink-100 bg-gradient-to-b from-brand-50/70 to-white">
-      <div className="bg-grid pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
-      <div className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-sun-200/40 blur-3xl" />
-      <div className="container-x relative py-14 sm:py-20">
+    <section className="border-b border-ink-100 bg-ink-50">
+      <div className="container-x py-12 sm:py-16">
         <Breadcrumbs items={crumbs} />
-        {eyebrow && <span className="eyebrow mt-8">{eyebrow}</span>}
-        <h1 className="mt-4 max-w-4xl text-4xl font-extrabold sm:text-5xl lg:text-6xl lg:leading-[1.05]">
-          {title}
-        </h1>
-        {intro && <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-500">{intro}</p>}
+        <h1 className="mt-6 max-w-3xl text-4xl font-extrabold sm:text-5xl">{title}</h1>
+        {intro && <p className="mt-5 max-w-2xl text-lg leading-8 text-ink-600">{intro}</p>}
         {children}
       </div>
     </section>

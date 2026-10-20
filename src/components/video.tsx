@@ -26,7 +26,7 @@ export function YouTubeVideo({ id, title }: { id: string; title: string }) {
           aria-label={`Watch our company video: ${title}`}
         >
           <Image
-            src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+            src={`https://i.ytimg.com/vi/${id}/sddefault.jpg`}
             alt=""
             fill
             sizes="(min-width: 1024px) 560px, 100vw"

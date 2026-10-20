@@ -89,4 +89,5 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
-export const companyVideo = { youtubeId: "V04Zirfn0bM", title: "MAT Energy company video" };
+// From youtube.com/@Mat_energy.
+export const companyVideo = { youtubeId: "x6OC6-BJlLw", title: "MAT Energy industrial solar systems" };

@@ -1,20 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { JsonLd } from "@/components/ui";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { MotionRoot } from "@/components/motion";
 import { site } from "@/lib/site";
 import { localBusinessJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { ogImage } from "@/lib/metadata";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -55,17 +56,19 @@ const gaId = isProd ? (process.env.NEXT_PUBLIC_GA_ID ?? "GT-NB3V57Q2") : "";
 const gtmId = isProd ? (process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-5XTD7HD6") : "";
 
 export const viewport: Viewport = {
-  themeColor: "#40b93c",
+  themeColor: "#1c4e1d",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-PK" className={`${inter.variable} ${jakarta.variable}`}>
+    <html lang="en-PK" className={`${barlow.variable} ${barlowCondensed.variable}`} suppressHydrationWarning>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <body className="flex min-h-dvh flex-col">
+        {/* Entrance animations only hide content once this has run, so the page reads fine without script. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2"
         >
           Skip to content
         </a>
@@ -76,6 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <WhatsAppFab />
+        <MotionRoot />
       </body>
       {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>

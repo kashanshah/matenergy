@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", ui-sans-serif, sans-serif;
 
   --color-brand-50: #effaee;
   --color-brand-100: #d9f3d6;
@@ -14,6 +14,7 @@
   --color-brand-700: #267a25;
   --color-brand-800: #215f21;
   --color-brand-900: #1c4e1d;
+  --color-brand-950: #123413;
 
   --color-sun-50: #fff6eb;
   --color-sun-100: #ffe9cc;
@@ -34,6 +35,17 @@
   --color-ink-700: #313d30;
   --color-ink-800: #1f291f;
   --color-ink-900: #121a13;
+
+  /* Roles. The ground is a cool paper that flatters the hazy Karachi light in the photographs. */
+  --color-paper: #f1f2ee;
+  --color-surface: #e3e7de;
+
+  /* Five type steps; nothing on the site uses a sixth. */
+  --text-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --text-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --text-lead: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
+  --text-head: clamp(2.75rem, 1.4rem + 5vw, 6rem);
+  --text-display: clamp(2.75rem, 11vw, 15rem);
 }
 
 @layer base {
@@ -42,61 +54,108 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-white font-sans text-ink-700 antialiased;
+    @apply bg-paper font-sans text-body text-ink-900 antialiased;
+    line-height: 1.55;
   }
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display text-ink-900 tracking-tight text-balance;
+    @apply font-display font-bold text-ink-900;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    text-wrap: balance;
   }
   ::selection {
     @apply bg-brand-200 text-ink-900;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-brand-500;
+    @apply outline-2 outline-offset-2 outline-brand-600;
   }
 }
 
 @layer components {
   .container-x {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[90rem] px-4 sm:px-6 lg:px-10;
   }
-  /* Small section label: a short rule followed by text. */
-  .kicker {
-    @apply flex items-center gap-3 font-sans text-sm font-semibold tracking-normal text-brand-700;
-  }
-  .kicker::before {
-    content: "";
-    @apply h-0.5 w-6 bg-sun-500;
+  /* Section headings: condensed capitals at the head step. */
+  .title-head {
+    @apply font-display text-head font-bold uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
   }
   .prose-mat p {
-    @apply mt-5 leading-8 text-ink-600;
+    @apply mt-5 leading-[1.6];
   }
   .prose-mat h2 {
-    @apply mt-12 text-2xl font-bold sm:text-3xl;
+    @apply mt-14 font-display text-lead font-bold uppercase;
   }
   .prose-mat ul {
     @apply mt-5 space-y-3;
   }
   .prose-mat ul li {
-    @apply relative pl-7 leading-7 text-ink-600;
+    @apply relative pl-6 leading-[1.6];
   }
   .prose-mat ul li::before {
     content: "";
-    @apply absolute left-0 top-2.5 size-2.5 rounded-full bg-brand-500;
+    @apply absolute left-0 top-[0.7em] size-2 bg-brand-500;
   }
+  /* Form fields keep their own conventions, outlines included. */
   .field {
-    @apply block w-full rounded-md border border-ink-200 bg-white px-3.5 py-2.5 text-ink-900 transition placeholder:text-ink-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-100;
+    @apply block w-full border border-ink-300 bg-white px-3.5 py-3 text-ink-900 transition placeholder:text-ink-500 focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-200;
   }
   .label {
-    @apply mb-1.5 block text-sm font-medium text-ink-800;
+    @apply mb-1.5 block font-medium text-ink-900;
+  }
+}
+
+/* Entrances: the children of a [data-reveal] block rise in turn as it enters. Hidden only once script has run. */
+html.js [data-reveal] > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.js [data-reveal].is-in > * {
+  opacity: 1;
+  transform: none;
+}
+html.js [data-reveal].is-in > :nth-child(2) {
+  transition-delay: 80ms;
+}
+html.js [data-reveal].is-in > :nth-child(3) {
+  transition-delay: 160ms;
+}
+html.js [data-reveal].is-in > :nth-child(4) {
+  transition-delay: 240ms;
+}
+html.js [data-reveal].is-in > :nth-child(n + 5) {
+  transition-delay: 320ms;
+}
+
+/* Slow drift on large photographs. */
+.drift {
+  animation: drift 26s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.08) translate3d(-1.5%, -1%, 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  html.js [data-reveal] > * {
+    transform: none;
+  }
+  .drift {
+    animation: none;
   }
   *,
   *::before,

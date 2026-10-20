@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Check } from "lucide-react";
 import { pageMeta } from "@/lib/metadata";
 import { PageHero } from "@/components/ui";
 import { CtaBand } from "@/components/blocks";
@@ -24,36 +23,37 @@ export default function SolarSystemsPage() {
   return (
     <>
       <PageHero
+        photo={{ src: "/images/projects/gadap-farmhouse-30kw-hybrid-inverters-batteries.jpg", alt: "Inverters and battery storage at a farmhouse in Gadap Town" }}
         crumbs={[{ name: "Solar Systems", path: "/solar-systems/" }]}
         title="On-grid, off-grid and hybrid solar systems"
         intro="We specialise in all three. Here's how each one works, and what it's best at."
       />
 
-      <section className="container-x py-16 sm:py-20">
-        <div className="overflow-x-auto rounded-lg border border-ink-200">
-          <table className="w-full min-w-[36rem] text-left text-sm">
-            <thead className="bg-ink-50 text-ink-900">
+      <section className="container-x py-20 sm:py-28" data-reveal>
+        <div className="overflow-x-auto bg-white">
+          <table className="w-full min-w-[36rem] text-left">
+            <thead className="bg-brand-900 text-white">
               <tr>
                 <th scope="col" className="px-5 py-4 font-semibold">
                   <span className="sr-only">Feature</span>
                 </th>
                 {systems.map((s) => (
-                  <th key={s.id} scope="col" className="px-5 py-4 font-display font-bold">
-                    <a href={`#${s.id}`} className="hover:text-brand-700">
+                  <th key={s.id} scope="col" className="px-5 py-4 font-semibold">
+                    <a href={`#${s.id}`} className="text-white hover:text-brand-200">
                       {s.name.replace(" solar system", "")}
                     </a>
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-ink-100">
+            <tbody className="divide-y divide-ink-200">{/* real table rows keep their lines: taste-skill-ignore */}
               {rows.map((r) => (
                 <tr key={r.label}>
-                  <th scope="row" className="px-5 py-4 font-medium text-ink-700">
+                  <th scope="row" className="px-5 py-4 font-medium">
                     {r.label}
                   </th>
                   {r.values.map((v, i) => (
-                    <td key={i} className="px-5 py-4 text-ink-600">
+                    <td key={i} className="px-5 py-4">
                       {v}
                     </td>
                   ))}
@@ -65,25 +65,26 @@ export default function SolarSystemsPage() {
       </section>
 
       {systems.map((s, i) => (
-        <section key={s.id} id={s.id} className="scroll-mt-28 border-t border-ink-100 py-16 sm:py-20">
-          <div className="container-x grid gap-10 lg:grid-cols-2 lg:gap-20">
-            <div>
-              <p className="kicker">{String(i + 1).padStart(2, "0")}</p>
-              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{s.name}</h2>
-              <p className="mt-5 text-lg leading-8 text-ink-700">{s.description}</p>
-            </div>
-            <div>
-              <Photo name={s.id} className="mb-8 aspect-[4/3]" sizes="(min-width: 1024px) 600px, 100vw" />
-              <h3 className="text-sm font-semibold text-ink-900">Benefits</h3>
+        <section key={s.id} id={s.id} className={`scroll-mt-28 py-24 sm:py-36 ${i % 2 ? "bg-surface" : ""}`}>
+          <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-8">
+            <div className={`lg:col-span-5 ${i % 2 ? "lg:order-2 lg:col-start-8" : ""}`} data-reveal>
+              <h2 className="title-head">{s.name.replace(" solar system", "")}</h2>
+              <p className="mt-8 max-w-[56ch]">{s.description}</p>
+              <h3 className="mt-10 font-sans text-body font-semibold tracking-normal">What it gives you</h3>
               <ul className="mt-4 space-y-3">
                 {s.benefits.map((b) => (
-                  <li key={b} className="flex gap-3 leading-7 text-ink-700">
-                    <Check className="mt-1 size-5 shrink-0 text-brand-600" aria-hidden />
+                  <li key={b} className="flex gap-3">
+                    <span aria-hidden className="mt-[0.6em] size-2 shrink-0 bg-brand-500" />
                     {b}
                   </li>
                 ))}
               </ul>
             </div>
+            <Photo
+              name={s.id}
+              className={`aspect-[4/5] lg:col-span-6 ${i % 2 ? "lg:order-1 lg:col-start-1" : "lg:col-start-7"}`}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
           </div>
         </section>
       ))}

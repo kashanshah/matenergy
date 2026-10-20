@@ -1,18 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 type ButtonVariant = "primary" | "outline" | "light";
 
+// One button shape on the whole site: square, flat, one fill.
 const buttonStyles: Record<ButtonVariant, string> = {
   primary: "bg-brand-700 text-white hover:bg-brand-800",
-  outline: "bg-white text-ink-900 ring-1 ring-inset ring-ink-300 hover:ring-ink-900",
+  outline: "bg-white text-ink-900 hover:bg-ink-100",
   light: "bg-white text-ink-900 hover:bg-brand-50",
 };
 
 export const buttonClass = (variant: ButtonVariant = "primary") =>
-  `group inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition ${buttonStyles[variant]}`;
+  `group inline-flex min-h-12 items-center justify-center gap-2 px-6 py-3 text-body font-semibold transition active:scale-[0.98] ${buttonStyles[variant]}`;
 
 export function ButtonLink({
   variant = "primary",
@@ -24,7 +26,7 @@ export function ButtonLink({
   return (
     <Link {...props} className={`${buttonClass(variant)} ${className}`}>
       {children}
-      {arrow && <ArrowRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden />}
+      {arrow && <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden />}
     </Link>
   );
 }
@@ -33,10 +35,10 @@ export function TextLink({ className = "", children, ...props }: ComponentProps<
   return (
     <Link
       {...props}
-      className={`group inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:text-brand-800 ${className}`}
+      className={`group inline-flex items-center gap-1.5 font-semibold text-brand-800 underline decoration-2 underline-offset-[6px] transition hover:text-brand-950 ${className}`}
     >
       {children}
-      <ArrowRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden />
+      <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden />
     </Link>
   );
 }
@@ -51,21 +53,18 @@ export function JsonLd({ data }: { data: object | object[] }) {
 }
 
 export function SectionHeading({
-  kicker,
   title,
   intro,
   className = "",
 }: {
-  kicker?: string;
   title: ReactNode;
   intro?: ReactNode;
   className?: string;
 }) {
   return (
-    <div className={`max-w-2xl ${className}`}>
-      {kicker && <p className="kicker">{kicker}</p>}
-      <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{title}</h2>
-      {intro && <p className="mt-4 text-lg leading-8 text-ink-500">{intro}</p>}
+    <div className={`max-w-3xl ${className}`} data-reveal>
+      <h2 className="title-head">{title}</h2>
+      {intro && <p className="mt-6 max-w-[52ch] text-lead leading-[1.35]">{intro}</p>}
     </div>
   );
 }
@@ -77,13 +76,13 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd(all)} />
-      <nav aria-label="Breadcrumb" className="text-sm text-ink-500">
-        <ol className="flex flex-wrap items-center gap-1.5">
+      <nav aria-label="Breadcrumb" className="text-small text-ink-600">
+        <ol className="flex flex-wrap items-center gap-2">
           {all.map((c, i) => (
-            <li key={c.path} className="flex items-center gap-1.5">
-              {i > 0 && <ChevronRight className="size-3.5 text-ink-300" aria-hidden />}
+            <li key={c.path} className="flex items-center gap-2">
+              {i > 0 && <span aria-hidden>/</span>}
               {i === all.length - 1 ? (
-                <span aria-current="page" className="text-ink-700">
+                <span aria-current="page" className="text-ink-900">
                   {c.name}
                 </span>
               ) : (
@@ -103,21 +102,28 @@ export function PageHero({
   crumbs,
   title,
   intro,
+  photo,
   children,
 }: {
   crumbs: Crumb[];
   title: ReactNode;
   intro?: ReactNode;
+  photo?: { src: string; alt: string };
   children?: ReactNode;
 }) {
   return (
-    <section className="border-b border-ink-100 bg-ink-50">
-      <div className="container-x py-12 sm:py-16">
+    <section className="bg-surface">
+      <div className="container-x pb-16 pt-10 sm:pb-24 sm:pt-14" data-reveal>
         <Breadcrumbs items={crumbs} />
-        <h1 className="mt-6 max-w-3xl text-4xl font-extrabold sm:text-5xl">{title}</h1>
-        {intro && <p className="mt-5 max-w-2xl text-lg leading-8 text-ink-600">{intro}</p>}
+        <h1 className="mt-10 max-w-5xl text-head uppercase leading-[0.9] sm:mt-16">{title}</h1>
+        {intro && <p className="mt-8 max-w-[52ch] text-lead leading-[1.35]">{intro}</p>}
         {children}
       </div>
+      {photo && (
+        <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[21/9]">
+          <Image src={photo.src} alt={photo.alt} fill priority sizes="100vw" className="drift object-cover" />
+        </div>
+      )}
     </section>
   );
 }

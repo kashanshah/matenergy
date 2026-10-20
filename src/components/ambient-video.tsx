@@ -2,14 +2,28 @@
 
 import { useEffect, useRef } from "react";
 
-/** Muted, looping background clip. Shows only the poster when the visitor prefers reduced motion. */
-export function AmbientVideo({ src, poster, label, className = "" }: { src: string; poster: string; label: string; className?: string }) {
+/**
+ * Muted, looping background clip. Shows only the poster when the visitor prefers reduced motion.
+ * `eager` is for a clip on the first screen: it loads straight away instead of waiting to be scrolled near.
+ */
+export function AmbientVideo({
+  src,
+  poster,
+  label,
+  className = "",
+  eager = false,
+}: {
+  src: string;
+  poster: string;
+  label: string;
+  className?: string;
+  eager?: boolean;
+}) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const video = ref.current;
     if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // Start downloading only once the clip is near the viewport.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -34,7 +48,7 @@ export function AmbientVideo({ src, poster, label, className = "" }: { src: stri
       muted
       loop
       playsInline
-      preload="none"
+      preload={eager ? "auto" : "none"}
       aria-label={label}
     />
   );

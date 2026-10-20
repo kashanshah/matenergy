@@ -16,15 +16,16 @@ export default function PartnersPage() {
   return (
     <>
       <PageHero
+        photo={{ src: "/images/projects/dha-phase-6-30kw-hybrid-inverters-batteries.jpg", alt: "Solis inverters and Pylontech batteries in DHA Phase 6" }}
         crumbs={[{ name: "Partners", path: "/partners/" }]}
         title="Our partners"
-        intro="Collaborating with industry leaders to drive innovation and success together. These are the panel, inverter and battery brands we install."
+        intro="The panel, inverter and battery brands we install."
       />
-      <section className="container-x space-y-14 py-16 sm:py-20">
+      <section className="container-x space-y-20 py-24 sm:py-36">
         {partnerCategories.map((cat) => (
-          <div key={cat}>
-            <h2 className="text-2xl font-bold">{cat}</h2>
-            <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-ink-200 bg-ink-200 sm:grid-cols-3 lg:grid-cols-6">
+          <div key={cat} data-reveal>
+            <h2 className="title-head">{cat}</h2>
+            <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
               {partners
                 .filter((p) => p.category === cat)
                 .map((p) => (
@@ -35,7 +36,7 @@ export default function PartnersPage() {
         ))}
       </section>
       <CtaBand
-        title="Not sure which brand is right for you?"
+        title="Not sure which brand?"
         text="We'll recommend the panel, inverter and battery combination that fits your budget and needs."
       />
     </>

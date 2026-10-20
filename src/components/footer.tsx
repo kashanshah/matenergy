@@ -1,101 +1,90 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AtSign, Clock, Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 
 const company = [
-  { href: "/about/", label: "About Us" },
-  { href: "/solar-systems/", label: "Solar Systems" },
+  { href: "/about/", label: "About" },
   { href: "/projects/", label: "Projects" },
+  { href: "/solar-systems/", label: "Solar systems" },
   { href: "/partners/", label: "Partners" },
-  { href: "/solar-calculator/", label: "Savings Calculator" },
+  { href: "/solar-calculator/", label: "Savings calculator" },
   { href: "/faqs/", label: "FAQs" },
-  { href: "/contact/", label: "Contact Us" },
-  { href: "/privacy-policy/", label: "Privacy Policy" },
+  { href: "/contact/", label: "Contact" },
+  { href: "/privacy-policy/", label: "Privacy policy" },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-ink-100 bg-ink-50">
-      <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
-        <div>
+    <footer className="bg-brand-900 text-white">
+      <div className="container-x flex min-h-[90svh] flex-col pb-8 pt-10">
+        <div className="grid gap-8 text-brand-100 sm:grid-cols-[auto_1fr_1fr_auto] sm:gap-12">
           <Image
-            src="/images/mat-energy-logo.png"
+            src="/images/mat-energy-mark.png"
             alt={`${site.name} logo`}
-            width={1087}
-            height={354}
-            sizes="172px"
-            className="h-14 w-auto"
+            width={64}
+            height={64}
+            className="size-12"
           />
-          <p className="mt-5 max-w-sm leading-7 text-ink-500">
-            MAT Energy solar energy services. Green energy saves the planet.
+          <p className="max-w-[30ch]">
+            {site.legalName}
+            <br />
+            {site.address.full}
           </p>
+          <p className="max-w-[34ch]">
+            Solar design, installation and after-sales care for homes and businesses in Karachi. Phone support 24/7.
+          </p>
+          <a href="#main" className="self-start font-semibold text-white hover:text-brand-200">
+            Back to top
+          </a>
         </div>
-        <div>
-          <h2 className="text-sm font-semibold text-ink-900">Services</h2>
-          <ul className="mt-5 space-y-3 text-sm">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link href={`/services/${s.slug}/`} className="text-ink-500 hover:text-brand-700">
-                  {s.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+
+        <div className="mt-auto pt-24" data-reveal>
+          <p className="text-brand-100">Call or WhatsApp us, day or night</p>
+          <a
+            href={site.phoneHref}
+            className="mt-3 block font-display text-display font-bold uppercase leading-[0.85] tracking-[-0.02em] text-white transition hover:text-brand-200"
+          >
+            {site.phoneDisplay.replace(/[()]/g, "")}
+          </a>
+          <a
+            href={`mailto:${site.email}`}
+            className="mt-6 inline-block text-lead font-semibold text-white underline decoration-2 underline-offset-[6px] hover:text-brand-200"
+          >
+            {site.email}
+          </a>
         </div>
-        <div>
-          <h2 className="text-sm font-semibold text-ink-900">Company</h2>
-          <ul className="mt-5 space-y-3 text-sm">
-            {company.map((c) => (
-              <li key={c.href}>
-                <Link href={c.href} className="text-ink-500 hover:text-brand-700">
-                  {c.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="text-sm font-semibold text-ink-900">Get in touch</h2>
-          <ul className="mt-5 space-y-4 text-sm text-ink-600">
-            <li className="flex gap-3">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
-              <a href={site.mapsHref} target="_blank" rel="noopener noreferrer" className="hover:text-brand-700">
-                {site.address.full}
-              </a>
-            </li>
-            <li className="flex gap-3">
-              <Phone className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
-              <a href={site.phoneHref} className="hover:text-brand-700">
-                {site.phoneDisplay}
-              </a>
-            </li>
-            <li className="flex gap-3">
-              <Mail className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
-              <a href={`mailto:${site.email}`} className="hover:text-brand-700">
-                {site.email}
-              </a>
-            </li>
-            {site.social.instagram && (
-              <li className="flex gap-3">
-                <AtSign className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-700">
-                  Instagram: mat.energy
-                </a>
-              </li>
-            )}
-            <li className="flex gap-3">
-              <Clock className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
-              {site.hours}
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-ink-100">
-        <div className="container-x flex flex-col gap-2 py-6 text-xs text-ink-500 sm:flex-row sm:justify-between">
-          <p>© {site.legalName} All rights reserved.</p>
-          <p>{site.tagline}</p>
+
+        <div className="mt-20 grid gap-8 text-small text-brand-100 md:grid-cols-[2fr_1fr_auto] md:items-end">
+          <nav aria-label="Footer">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2">
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}/`} className="text-white hover:text-brand-200">
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+              {company.map((c) => (
+                <li key={c.href}>
+                  <Link href={c.href} className="text-white hover:text-brand-200">
+                    {c.label}
+                  </Link>
+                </li>
+              ))}
+              {site.social.instagram && (
+                <li>
+                  <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-200">
+                    Instagram
+                  </a>
+                </li>
+              )}
+            </ul>
+          </nav>
+          <p>Photographs from MAT Energy installations. Karachi skyline by Ktownboy103, CC0, via Wikimedia Commons.</p>
+          <p>
+            Karachi · {site.tagline}
+          </p>
         </div>
       </div>
     </footer>

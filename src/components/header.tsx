@@ -4,8 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Mail, Menu, Phone, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { nav, site } from "@/lib/site";
+
+// The bar carries five links; the full list lives in the menu.
+const primary = ["/services/", "/projects/", "/solar-systems/", "/solar-calculator/", "/about/"];
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -18,101 +21,90 @@ export function Header() {
     };
   }, [open]);
 
+  const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
+
   return (
-    <header className="sticky top-0 z-50">
-      <div className="hidden bg-ink-900 text-xs text-ink-300 md:block">
-        <div className="container-x flex h-9 items-center justify-between">
-          <p>Solar energy solutions for homes and businesses in Karachi</p>
-          <div className="flex items-center gap-6">
-            <a href={site.phoneHref} className="inline-flex items-center gap-1.5 hover:text-white">
-              <Phone className="size-3.5" aria-hidden /> Call support 24/7: {site.phoneDisplay}
-            </a>
-            <a href={`mailto:${site.email}`} className="inline-flex items-center gap-1.5 hover:text-white">
-              <Mail className="size-3.5" aria-hidden /> {site.email}
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="border-b border-ink-200 bg-white">
-        <div className="container-x flex h-18 items-center justify-between gap-6">
-          <Link href="/" className="shrink-0" aria-label={`${site.name} home`}>
-            <Image
-              src="/images/mat-energy-logo.png"
-              alt={`${site.name} – ${site.tagline}`}
-              width={1087}
-              height={354}
-              priority
-              sizes="148px"
-              className="h-11 w-auto sm:h-12"
-            />
+    <header className="sticky top-0 z-50 bg-paper">
+      <div className="container-x flex h-18 items-center justify-between gap-6">
+        <Link href="/" className="shrink-0" aria-label={`${site.name} home`}>
+          <Image
+            src="/images/mat-energy-logo.png"
+            alt={`${site.name} – ${site.tagline}`}
+            width={1087}
+            height={354}
+            priority
+            sizes="148px"
+            className="h-11 w-auto sm:h-12"
+          />
+        </Link>
+        <nav aria-label="Main" className="hidden lg:block">
+          <ul className="flex items-center gap-7">
+            {nav
+              .filter((item) => primary.includes(item.href))
+              .map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className={`font-medium decoration-2 underline-offset-[6px] transition hover:text-brand-700 hover:underline ${
+                      isActive(item.href) ? "text-brand-700 underline" : "text-ink-900"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </nav>
+        <div className="flex items-center gap-3 sm:gap-5">
+          <a href={site.phoneHref} className="hidden font-semibold text-ink-900 hover:text-brand-700 xl:inline">
+            {site.phoneDisplay}
+          </a>
+          <Link
+            href="/get-a-quote/"
+            className="inline-flex min-h-11 items-center bg-brand-700 px-4 font-semibold text-white transition hover:bg-brand-800 active:scale-[0.98] sm:px-5"
+          >
+            Get a quote
           </Link>
-          <nav aria-label="Main" className="hidden xl:block">
-            <ul className="flex items-center gap-1">
-              {nav.map((item) => {
-                const active = pathname === item.href || (item.href !== "/services/" && pathname.startsWith(item.href));
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={`px-3 py-2 text-sm font-medium transition hover:text-brand-700 ${
-                        active ? "text-brand-700" : "text-ink-700"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/get-a-quote/"
-              className="hidden rounded-md bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800 sm:inline-flex"
-            >
-              Get a Quote
-            </Link>
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="grid size-11 place-items-center rounded-md text-ink-800 ring-1 ring-ink-200 xl:hidden"
-            >
-              {open ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="site-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="grid size-11 place-items-center bg-surface text-ink-900 transition hover:bg-ink-200 lg:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
       </div>
       {open && (
-        <div id="mobile-menu" className="fixed inset-x-0 bottom-0 top-18 overflow-y-auto bg-white xl:hidden md:top-27">
-          <nav aria-label="Mobile" className="container-x py-6">
-            <ul className="divide-y divide-ink-100">
+        <div id="site-menu" className="fixed inset-x-0 bottom-0 top-18 overflow-y-auto bg-brand-900 text-white lg:hidden">
+          <nav aria-label="Site" className="container-x py-8">
+            <ul className="space-y-1">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block py-4 text-lg font-semibold text-ink-900"
+                    className="block py-1.5 font-display text-head font-bold uppercase leading-none text-white hover:text-brand-200"
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 grid gap-3">
+            <div className="mt-10 grid gap-3">
               <Link
                 href="/get-a-quote/"
                 onClick={() => setOpen(false)}
-                className="rounded-md bg-brand-700 px-6 py-3.5 text-center font-semibold text-white"
+                className="flex min-h-14 items-center justify-center bg-white px-6 font-semibold text-ink-900"
               >
                 Get a quote
               </Link>
               <a
                 href={site.phoneHref}
-                className="rounded-md px-6 py-3.5 text-center font-semibold text-ink-900 ring-1 ring-ink-200"
+                className="flex min-h-14 items-center justify-center bg-brand-800 px-6 font-semibold text-white"
               >
                 Call {site.phoneDisplay}
               </a>

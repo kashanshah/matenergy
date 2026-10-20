@@ -16,11 +16,12 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
+        photo={{ src: "/images/projects/karachi-10kw-elevated-rooftop.jpg", alt: "An elevated rooftop array with a walkway, installed by MAT Energy" }}
         crumbs={[{ name: "Services", path: "/services/" }]}
         title="Powering you with smart solutions"
         intro="From a home energy audit to a full commercial system, and the after-sales care that keeps it running."
       />
-      <section className="container-x py-16 sm:py-20">
+      <section className="container-x py-24 sm:py-36">
         <ServiceList items={services} headingLevel="h2" />
       </section>
       <SystemsSection />

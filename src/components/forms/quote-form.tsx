@@ -39,7 +39,7 @@ export function QuoteForm({ defaultSegment = "Residential" }: { defaultSegment?:
           {segments.map((s) => (
             <label
               key={s}
-              className="flex cursor-pointer items-center justify-center rounded-md px-3 py-3 text-sm font-semibold text-ink-700 ring-1 ring-ink-200 transition has-checked:bg-brand-700 has-checked:text-white has-checked:ring-brand-700 has-focus-visible:ring-4 has-focus-visible:ring-brand-100"
+              className="flex cursor-pointer items-center justify-center px-3 py-3 font-semibold text-ink-900 border border-ink-300 bg-white transition has-checked:border-brand-700 has-checked:bg-brand-700 has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-brand-600"
             >
               <input type="radio" name="segment" value={s} defaultChecked={s === defaultSegment} className="sr-only" />
               {s === "Residential" ? "Home" : s}
@@ -98,7 +98,7 @@ export function QuoteForm({ defaultSegment = "Residential" }: { defaultSegment?:
         </Field>
       </div>
       <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-ink-500">We&apos;ll only use your details to respond to this request.</p>
+        <p className="text-small text-ink-700">We&apos;ll only use your details to respond to this request.</p>
         <SubmitButton submitting={status === "submitting"}>Request a quote</SubmitButton>
       </div>
       <div className="sm:col-span-2">

@@ -15,11 +15,12 @@ export default function FaqsPage() {
   return (
     <>
       <PageHero
+        photo={{ src: "/images/projects/karachi-10kw-growatt-inverter.jpg", alt: "A Growatt on-grid inverter mounted on a wall" }}
         crumbs={[{ name: "FAQs", path: "/faqs/" }]}
         title="Frequently asked questions"
         intro="The questions we usually get about solar. Don't see yours? Call or message us."
       />
-      <section className="container-x py-16 sm:py-20">
+      <section className="container-x py-24 sm:py-36">
         <div className="max-w-4xl">
           <FaqList faqs={generalFaqs} />
         </div>

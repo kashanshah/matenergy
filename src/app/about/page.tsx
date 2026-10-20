@@ -6,6 +6,7 @@ import {
   AboutSection,
   MethodologySection,
   PartnersSection,
+  ProjectsSection,
   StatsStrip,
   TestimonialsSection,
   WhyUsSection,
@@ -30,6 +31,7 @@ export default function AboutPage() {
         <StatsStrip />
         <YouTubeVideo id={companyVideo.youtubeId} title={companyVideo.title} />
       </section>
+      <ProjectsSection />
       <TestimonialsSection />
       <WhyUsSection />
       <MethodologySection />

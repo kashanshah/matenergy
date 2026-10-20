@@ -7,6 +7,7 @@ import { services } from "@/lib/services";
 const company = [
   { href: "/about/", label: "About Us" },
   { href: "/solar-systems/", label: "Solar Systems" },
+  { href: "/projects/", label: "Projects" },
   { href: "/partners/", label: "Partners" },
   { href: "/solar-calculator/", label: "Savings Calculator" },
   { href: "/faqs/", label: "FAQs" },

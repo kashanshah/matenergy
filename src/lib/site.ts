@@ -34,6 +34,7 @@ export const nav = [
   { href: "/about/", label: "About" },
   { href: "/services/", label: "Services" },
   { href: "/solar-systems/", label: "Solar Systems" },
+  { href: "/projects/", label: "Projects" },
   { href: "/partners/", label: "Partners" },
   { href: "/solar-calculator/", label: "Savings Calculator" },
   { href: "/faqs/", label: "FAQs" },

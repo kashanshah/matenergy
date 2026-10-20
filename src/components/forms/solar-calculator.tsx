@@ -49,15 +49,15 @@ export function SolarCalculator() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
-      <div className="rounded-lg border border-ink-200 bg-white p-6 sm:p-8 lg:self-start">
-        <h2 className="text-2xl font-bold">Your electricity usage</h2>
+      <div className="bg-white p-6 sm:p-8 lg:self-start">
+        <h2 className="text-lead font-bold">Your electricity usage</h2>
         <div className="mt-8 space-y-8">
           <div>
             <div className="flex items-baseline justify-between gap-4">
               <label htmlFor="bill" className="label">
                 Average monthly bill
               </label>
-              <span className="font-display text-lg font-bold text-ink-900">{pkr(bill)}</span>
+              <span className="font-display text-body font-bold text-ink-900">{pkr(bill)}</span>
             </div>
             <input
               id="bill"
@@ -70,7 +70,7 @@ export function SolarCalculator() {
               className="mt-3 w-full accent-brand-500"
             />
             <div className="mt-3 flex items-center gap-2">
-              <span className="text-sm text-ink-500">or type it:</span>
+              <span className="text-small text-ink-700">or type it:</span>
               <input
                 type="number"
                 inputMode="numeric"
@@ -95,7 +95,7 @@ export function SolarCalculator() {
               onChange={(e) => setTariff(Math.max(0, Number(e.target.value)))}
               className="field max-w-44 py-2"
             />
-            <p className="mt-1.5 text-xs text-ink-500">
+            <p className="mt-1.5 text-small text-ink-700">
               Your bill total ÷ units consumed, including taxes. Check a recent K-Electric bill.
             </p>
           </div>
@@ -104,7 +104,7 @@ export function SolarCalculator() {
               <label htmlFor="coverage" className="label">
                 How much of your usage should solar cover?
               </label>
-              <span className="font-display text-lg font-bold text-ink-900">{coverage}%</span>
+              <span className="font-display text-body font-bold text-ink-900">{coverage}%</span>
             </div>
             <input
               id="coverage"
@@ -117,7 +117,7 @@ export function SolarCalculator() {
               className="mt-3 w-full accent-brand-500"
             />
           </div>
-          <label className="flex cursor-pointer items-start gap-3 rounded-md bg-ink-50 p-4">
+          <label className="flex cursor-pointer items-start gap-3 bg-surface p-4">
             <input
               type="checkbox"
               checked={backup}
@@ -128,45 +128,45 @@ export function SolarCalculator() {
               <span className="flex items-center gap-2 font-semibold text-ink-900">
                 <BatteryCharging className="size-4 text-brand-600" aria-hidden /> I want battery backup for load-shedding
               </span>
-              <span className="mt-1 block text-sm text-ink-500">We&apos;ll size the battery bank during the site survey.</span>
+              <span className="mt-1 block text-small text-ink-700">We&apos;ll size the battery bank during the site survey.</span>
             </span>
           </label>
         </div>
       </div>
 
       <div className="flex flex-col gap-6">
-        <div className="rounded-lg bg-brand-800 p-6 text-white sm:p-8" aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-wider text-brand-100">Your solar estimate</p>
+        <div className="bg-brand-800 p-6 text-white sm:p-8" aria-live="polite">
+          <h2 className="font-display text-lead font-bold uppercase leading-none text-white">Your estimate</h2>
           <dl className="mt-6 grid grid-cols-2 gap-4">
             {stats.map(({ icon: Icon, label, value, accent }) => (
               <div
                 key={label}
-                className={`rounded-md p-4 ${accent ? "col-span-2 bg-white text-ink-900" : "bg-white/10 ring-1 ring-white/15"}`}
+                className={`flex flex-col-reverse p-4 ${accent ? "col-span-2 bg-white text-ink-900" : "bg-brand-900"}`}
               >
-                <dt className={`flex items-center gap-2 text-xs font-medium ${accent ? "text-ink-500" : "text-brand-100"}`}>
+                <dt className={`mt-1 flex items-center gap-2 font-medium ${accent ? "text-ink-700" : "text-brand-100"}`}>
                   <Icon className={`size-4 ${accent ? "text-sun-500" : ""}`} aria-hidden />
                   {label}
                 </dt>
-                <dd className={`mt-1 font-display font-extrabold ${accent ? "text-4xl text-ink-900" : "text-xl"}`}>
+                <dd className={`font-display font-bold ${accent ? "text-head text-ink-900" : "text-lead"}`}>
                   {value}
                 </dd>
               </div>
             ))}
           </dl>
-          <p className="mt-5 text-xs leading-5 text-brand-100">
+          <p className="mt-5 text-small leading-5 text-brand-100">
             Indicative only. Based on ~{Math.round(result.monthlyUnits).toLocaleString()} units/month and an average
             Karachi yield of {KWH_PER_KW_MONTH} kWh per kW per month. Actual results depend on roof orientation,
             shading, tariff and net-metering rules.
           </p>
         </div>
 
-        <div className="rounded-lg border border-ink-200 bg-white p-6 sm:p-8">
+        <div className="bg-white p-6 sm:p-8">
           {status === "success" ? (
             <FormSuccess title="We'll send your detailed proposal" onReset={reset} />
           ) : (
             <>
-              <h2 className="text-xl font-bold">Get an exact quote for this system</h2>
-              <p className="mt-2 text-sm text-ink-500">We&apos;ll confirm the sizing after a site survey.</p>
+              <h2 className="text-lead font-bold">Get an exact quote for this system</h2>
+              <p className="mt-2 text-small text-ink-700">We&apos;ll confirm the sizing after a site survey.</p>
               <form onSubmit={onSubmit} className="relative mt-6 grid gap-4 sm:grid-cols-2">
                 <Honeypot />
                 <Field label="Name" name="calc-name" required error={fieldErrors.name}>

@@ -31,16 +31,17 @@ export default function CalculatorPage() {
   return (
     <>
       <PageHero
+        photo={{ src: "/images/projects/karachi-10kw-rooftop-panels.jpg", alt: "Rooftop panels overlooking Karachi" }}
         crumbs={[{ name: "Solar Savings Calculator", path: "/solar-calculator/" }]}
-        title="Solar savings calculator for Karachi"
+        title="Solar savings calculator"
         intro="Find out what size solar system you need and how much you could save, in seconds."
       />
-      <section className="py-16 sm:py-20">
+      <section className="py-20 sm:py-28">
         <div className="container-x">
           <SolarCalculator />
         </div>
       </section>
-      <section className="container-x border-t border-ink-100 py-16 sm:py-20">
+      <section className="container-x py-24 sm:py-36">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
           <SectionHeading title="About this estimate" />
           <FaqList faqs={faqs} />

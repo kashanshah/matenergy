@@ -57,7 +57,7 @@ export const services: Service[] = [
   {
     slug: "commercial-solar-solutions",
     name: "Commercial Solar Solutions",
-    title: "Commercial & industrial solar in Karachi",
+    title: "Commercial and industrial solar",
     metaTitle: "Commercial & Industrial Solar Installation in Karachi",
     metaDescription:
       "Solar for offices, shops, warehouses and factories in Karachi. On-grid and off-grid systems with a detailed cost analysis before you commit. MAT Energy.",
@@ -120,7 +120,7 @@ export const services: Service[] = [
   {
     slug: "after-sales-services",
     name: "After Sales Excellence",
-    title: "Solar maintenance & after-sales service in Karachi",
+    title: "Solar maintenance and after-sales",
     metaTitle: "Solar Panel Maintenance & Repair in Karachi",
     metaDescription:
       "Solar panel cleaning, system checks, repairs and fast support in Karachi. MAT Energy's after-sales service keeps your system performing for the long term.",

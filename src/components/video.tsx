@@ -9,7 +9,7 @@ export function YouTubeVideo({ id, title }: { id: string; title: string }) {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-lg bg-ink-900">
+    <div className="relative aspect-video overflow-hidden bg-ink-900">
       {playing ? (
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
@@ -33,12 +33,11 @@ export function YouTubeVideo({ id, title }: { id: string; title: string }) {
             className="object-cover opacity-90 transition group-hover:opacity-100"
             priority
           />
-          <span className="absolute inset-0 bg-gradient-to-t from-ink-900/60 to-transparent" />
-          <span className="absolute bottom-5 left-5 flex items-center gap-3 text-left text-white">
-            <span className="grid size-12 place-items-center rounded-full bg-white text-brand-700 transition group-hover:scale-105">
+          <span className="absolute bottom-0 left-0 flex items-center gap-4 bg-ink-900/85 py-3 pl-3 pr-6 text-left text-white transition group-hover:bg-brand-800">
+            <span className="grid size-12 place-items-center bg-white text-brand-700 transition group-hover:scale-105">
               <Play className="ml-0.5 size-5 fill-current" aria-hidden />
             </span>
-            <span className="text-sm font-semibold">Watch our company video</span>
+            <span className="font-semibold">Watch our company video</span>
           </span>
         </button>
       )}

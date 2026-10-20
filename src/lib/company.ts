@@ -4,13 +4,13 @@ export const intro =
   "At MAT Energy, we deliver smart, sustainable solar solutions for homes and businesses. From personalised Home Energy Audits to comprehensive Commercial Solar Systems, our expert team is here to help you harness clean energy, cut costs, and take control of your power. Join us in building a future powered by the sun.";
 
 export const about = {
-  title: "Empowering lives with smarter energy solutions",
+  title: "Who we are",
   text: "MAT Energy leads in solar solutions, offering tailored On-Grid and Off-Grid residential options, including Home Energy Audits. For businesses, our Commercial Solar Solutions come with detailed cost analyses. Post-installation, our commitment continues with dedicated After Sales Services, ensuring sustained efficiency and client satisfaction. We are your go-to for innovative, efficient, and sustainable energy solutions.",
   specialties: ["Reduced energy expenses", "Eco-friendly power", "Boost your home's value", "Freedom from energy bills"],
 };
 
 export const whyUs = {
-  title: "Reasons to choose MAT Energy",
+  title: "Why MAT Energy",
   paragraphs: [
     "MAT Energy (Pvt.) Ltd. specialises in delivering cost-effective and sustainable solar energy solutions. Our experienced professionals are dedicated to providing innovative solar technology tailored to your unique energy needs.",
     "We offer customisable solar solutions that not only save you money but also simplify your life. From design to installation, our team ensures long-term cost savings while reducing your environmental impact. Our user-friendly, low-maintenance solar panels, coupled with exceptional customer service, guarantee a seamless experience.",

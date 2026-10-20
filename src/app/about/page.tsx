@@ -25,9 +25,10 @@ export const metadata: Metadata = pageMeta({
 export default function AboutPage() {
   return (
     <>
-      <PageHero crumbs={[{ name: "About", path: "/about/" }]} title="About MAT Energy" intro={intro} />
+      <PageHero
+        photo={{ src: "/videos/karachi-rooftop-solar-poster.jpg", alt: "Panels MAT Energy installed on a raised frame above a Karachi roof" }} crumbs={[{ name: "About", path: "/about/" }]} title="About MAT Energy" intro={intro} />
       <AboutSection link={false} />
-      <section className="container-x grid gap-12 pb-20 sm:pb-24 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20">
+      <section className="container-x grid gap-14 pb-28 sm:pb-40 lg:grid-cols-[1fr_1.4fr] lg:items-center lg:gap-16">
         <StatsStrip />
         <YouTubeVideo id={companyVideo.youtubeId} title={companyVideo.title} />
       </section>

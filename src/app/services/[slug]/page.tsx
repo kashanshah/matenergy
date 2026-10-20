@@ -14,6 +14,13 @@ import type { PhotoKey } from "@/lib/media";
 import { serviceJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/metadata";
 
+const heroPhoto: Record<string, { src: string; alt: string }> = {
+  "residential-solar-solutions": { src: "/images/projects/karachi-10kw-rooftop-panels.jpg", alt: "Home rooftop panels overlooking Karachi" },
+  "commercial-solar-solutions": { src: "/images/projects/karachi-10kw-panel-array.jpg", alt: "A large sunlit panel array" },
+  "home-energy-audits": { src: "/images/projects/gulistan-e-johar-25kw-huawei-inverter.jpg", alt: "An inverter and protection boxes inspected on site" },
+  "after-sales-services": { src: "/images/projects/gulshan-e-iqbal-20kw-huawei-inverter.jpg", alt: "A serviced inverter between its protection boxes" },
+};
+
 const servicePhoto: Record<string, PhotoKey> = {
   "home-energy-audits": "audit",
   "after-sales-services": "afterSales",
@@ -46,6 +53,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
     <>
       <JsonLd data={serviceJsonLd({ name: service.name, description: service.metaDescription, path })} />
       <PageHero
+        photo={heroPhoto[service.slug]}
         crumbs={[
           { name: "Services", path: "/services/" },
           { name: service.name, path },
@@ -63,50 +71,58 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </div>
       </PageHero>
 
-      <section className="container-x grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
-        <div>
+      <section className="container-x grid gap-14 py-24 sm:py-36 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-6" data-reveal>
           {service.body.map((p) => (
-            <p key={p.slice(0, 24)} className="mb-5 text-lg leading-8 text-ink-700">
+            <p key={p.slice(0, 24)} className="mb-6 max-w-[60ch]">
               {p}
             </p>
           ))}
-          {photo && <Photo name={photo} className="mt-8 aspect-[16/10]" sizes="(min-width: 1024px) 640px, 100vw" />}
+          {photo && <Photo name={photo} className="mt-10 aspect-[4/3]" sizes="(min-width: 1024px) 50vw, 100vw" />}
         </div>
-        <div className="space-y-8">
+        <div className="space-y-12 lg:col-span-5 lg:col-start-8">
           {service.points.map((p) => (
-            <div key={p.title} className="border-t-2 border-brand-500 pt-5">
-              <h2 className="text-xl font-bold">{p.title}</h2>
-              <p className="mt-2 leading-7 text-ink-600">{p.text}</p>
+            <div key={p.title} data-reveal>
+              <h2 className="text-lead uppercase leading-none">{p.title}</h2>
+              <p className="mt-3">{p.text}</p>
             </div>
           ))}
         </div>
       </section>
 
       {relevantSystems.length > 0 && (
-        <section className="border-t border-ink-100 bg-ink-50 py-16 sm:py-20">
-          <div className="container-x">
+        <section className="bg-brand-900 py-24 text-white sm:py-36">
+          <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
             <SectionHeading
-              title="Which system is right for you?"
+              className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start [&_h2]:text-white"
+              title="Which system suits you?"
               intro="We install all three types. The right one depends on your bill, your roof and how much backup you need."
             />
-            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-ink-200 bg-ink-200 md:grid-cols-3">
+            <ul className="space-y-10 lg:col-span-6 lg:col-start-7">
               {relevantSystems.map((s) => (
-                <Link key={s.id} href={`/solar-systems/#${s.id}`} className="group bg-white p-7 hover:bg-brand-50">
-                  <h3 className="flex items-center justify-between gap-3 text-lg font-bold group-hover:text-brand-700">
-                    {s.name}
-                    <ArrowRight className="size-4 text-ink-300 group-hover:text-brand-600" aria-hidden />
-                  </h3>
-                  <p className="mt-2 leading-7 text-ink-600">{s.summary}</p>
-                </Link>
+                <li key={s.id} data-reveal>
+                  <Link href={`/solar-systems/#${s.id}`} className="group grid grid-cols-[2fr_3fr] items-center gap-6">
+                    <Photo name={s.id} className="aspect-[4/3]" sizes="(min-width: 1024px) 20vw, 40vw" />
+                    <span>
+                      <span className="flex items-center gap-3">
+                        <h3 className="text-lead uppercase leading-none text-white transition group-hover:text-brand-200">
+                          {s.name.replace(" solar system", "")}
+                        </h3>
+                        <ArrowRight className="size-5 shrink-0 text-brand-200 transition group-hover:translate-x-1" aria-hidden />
+                      </span>
+                      <span className="mt-2 block text-white">{s.summary}</span>
+                    </span>
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
       )}
 
       {testimonial && (
-        <section className="container-x py-16 sm:py-20">
-          <div className="max-w-3xl">
+        <section className="container-x py-24 sm:py-36">
+          <div className="max-w-4xl">
             <TestimonialQuote t={testimonial} />
           </div>
         </section>
@@ -115,33 +131,33 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <MethodologySection />
 
       {faqs.length > 0 && (
-        <section className="border-t border-ink-100 py-16 sm:py-20">
-          <div className="container-x grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <section className="bg-surface py-24 sm:py-36">
+          <div className="container-x grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-16">
             <SectionHeading title="Common questions" />
             <FaqList faqs={faqs} />
           </div>
         </section>
       )}
 
-      <section id="quote" className="scroll-mt-28 border-t border-ink-100 bg-ink-50 py-16 sm:py-20">
+      <section id="quote" className="scroll-mt-28 py-24 sm:py-36">
         <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
           <div>
             <SectionHeading
               title="Request a quote"
               intro="Tell us a little about your property and we'll call you to discuss it."
             />
-            <h2 className="mt-12 text-sm font-semibold text-ink-900">Other services</h2>
+            <h2 className="mt-12 font-sans text-body font-semibold tracking-normal">Other services</h2>
             <ul className="mt-3 space-y-2">
               {others.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/services/${s.slug}/`} className="text-brand-700 hover:underline">
+                  <Link href={`/services/${s.slug}/`} className="font-semibold text-brand-700 underline decoration-2 underline-offset-4 hover:text-brand-900">
                     {s.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-lg border border-ink-200 bg-white p-6 sm:p-10">
+          <div className="bg-white p-6 sm:p-10" data-reveal>
             <QuoteForm defaultSegment={service.segment} />
           </div>
         </div>

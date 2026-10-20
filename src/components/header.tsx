@@ -20,12 +20,12 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="hidden bg-ink-900 text-xs text-ink-200 md:block">
+      <div className="hidden bg-ink-900 text-xs text-ink-300 md:block">
         <div className="container-x flex h-9 items-center justify-between">
-          <p>Solar installation for homes, businesses & industry across Karachi</p>
+          <p>Solar energy solutions for homes and businesses in Karachi</p>
           <div className="flex items-center gap-6">
             <a href={site.phoneHref} className="inline-flex items-center gap-1.5 hover:text-white">
-              <Phone className="size-3.5" aria-hidden /> {site.phoneDisplay}
+              <Phone className="size-3.5" aria-hidden /> Call support 24/7: {site.phoneDisplay}
             </a>
             <a href={`mailto:${site.email}`} className="inline-flex items-center gap-1.5 hover:text-white">
               <Mail className="size-3.5" aria-hidden /> {site.email}
@@ -33,7 +33,7 @@ export function Header() {
           </div>
         </div>
       </div>
-      <div className="border-b border-ink-100 bg-white/90 backdrop-blur-md">
+      <div className="border-b border-ink-200 bg-white">
         <div className="container-x flex h-18 items-center justify-between gap-6">
           <Link href="/" className="shrink-0" aria-label={`${site.name} home`}>
             <Image
@@ -54,7 +54,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={active ? "page" : undefined}
-                      className={`rounded-full px-3 py-2 text-sm font-medium transition hover:bg-brand-50 hover:text-brand-700 ${
+                      className={`px-3 py-2 text-sm font-medium transition hover:text-brand-700 ${
                         active ? "text-brand-700" : "text-ink-700"
                       }`}
                     >
@@ -68,9 +68,9 @@ export function Header() {
           <div className="flex items-center gap-2">
             <Link
               href="/get-a-quote/"
-              className="hidden rounded-full bg-sun-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-sun-500/25 transition hover:bg-sun-600 sm:inline-flex"
+              className="hidden rounded-md bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 sm:inline-flex"
             >
-              Free Quote
+              Get a Quote
             </Link>
             <button
               type="button"
@@ -78,7 +78,7 @@ export function Header() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="grid size-11 place-items-center rounded-full text-ink-800 ring-1 ring-ink-200 xl:hidden"
+              className="grid size-11 place-items-center rounded-md text-ink-800 ring-1 ring-ink-200 xl:hidden"
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
@@ -105,13 +105,13 @@ export function Header() {
               <Link
                 href="/get-a-quote/"
                 onClick={() => setOpen(false)}
-                className="rounded-full bg-sun-500 px-6 py-3.5 text-center font-semibold text-white"
+                className="rounded-md bg-brand-600 px-6 py-3.5 text-center font-semibold text-white"
               >
-                Get a free quote
+                Get a quote
               </Link>
               <a
                 href={site.phoneHref}
-                className="rounded-full px-6 py-3.5 text-center font-semibold text-ink-900 ring-1 ring-ink-200"
+                className="rounded-md px-6 py-3.5 text-center font-semibold text-ink-900 ring-1 ring-ink-200"
               >
                 Call {site.phoneDisplay}
               </a>

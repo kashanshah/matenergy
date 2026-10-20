@@ -21,8 +21,8 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Solar Panel Installation in Karachi | Residential & Industrial Solar | Mat Energy",
-    template: "%s | Mat Energy",
+    default: "Solar Panel Installation in Karachi | Homes & Businesses | MAT Energy",
+    template: "%s | MAT Energy",
   },
   description: site.description,
   applicationName: site.name,

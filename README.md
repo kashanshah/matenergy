@@ -1,6 +1,6 @@
-# Mat Energy – Website
+# MAT Energy – Website
 
-Next.js 16 (App Router, Cache Components) + Tailwind CSS v4 website for **Mat Energy**, a solar installation company in Karachi. It's built for local SEO on residential and industrial solar searches.
+Next.js 16 (App Router, Cache Components) + Tailwind CSS v4 website for **MAT Energy**, a solar installation company in Karachi. The copy comes from the previous WordPress site at matenergy.com.pk.
 
 ## Getting started
 
@@ -16,7 +16,7 @@ npm run build && npm start   # production
 | Variable | Purpose |
 | --- | --- |
 | `RESEND_API_KEY` | Resend API key used by `/api/lead` |
-| `RESEND_FROM_EMAIL` | Sender address on a Resend-verified domain (default `Mat Energy <noreply@matenergy.com.pk>`) |
+| `RESEND_FROM_EMAIL` | Sender address on a Resend-verified domain (default `MAT Energy <noreply@matenergy.com.pk>`) |
 | `ADMIN_EMAILS` | Comma-separated recipients for lead notifications |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL (default `https://matenergy.com.pk`) |
 | `GOOGLE_SITE_VERIFICATION` | Optional Search Console token |
@@ -34,24 +34,23 @@ All three forms post to `src/app/api/lead/route.ts`. The route validates input w
 
 The forms are:
 
-- **Free quote / site survey**: `/get-a-quote/`, and embedded on every service and area page
+- **Quote request**: `/get-a-quote/`, and embedded on the home page and every service page
 - **Contact**: `/contact/`
 - **Solar savings calculator**: `/solar-calculator/`. The lead email includes the calculated estimate.
 
 ## Site map
 
 - `/`: home
-- `/services/` plus 6 service pages: residential, commercial & industrial, net metering, hybrid/battery, energy audit, maintenance
-- `/solar-installation-karachi/` plus 13 area pages: residential areas and industrial zones, for local SEO
+- `/services/` plus the 4 services from the live site: Residential Solar Solutions, Commercial Solar Solutions, Home Energy Audits, After Sales Excellence
+- `/solar-systems/`: on-grid, off-grid and hybrid systems compared
 - `/partners/`, `/about/`, `/contact/`, `/get-a-quote/`, `/solar-calculator/`, `/faqs/`, `/privacy-policy/`
-- `/blog/` plus articles
 
 ## SEO
 
 - Per-page titles, descriptions, canonicals, Open Graph and Twitter tags (`src/lib/metadata.ts`)
-- JSON-LD structured data: LocalBusiness, WebSite, Service, FAQPage, BreadcrumbList, BlogPosting (`src/lib/jsonld.ts`)
+- JSON-LD structured data: LocalBusiness, WebSite, Service, FAQPage, BreadcrumbList (`src/lib/jsonld.ts`)
 - `sitemap.xml`, `robots.txt` and a web manifest are generated automatically
-- `trailingSlash: true` and 301 redirects from likely old WordPress slugs (`next.config.ts`)
+- `trailingSlash: true` and 301 redirects from the old WordPress URLs (`next.config.ts`)
 
 ## Editing content
 
@@ -60,12 +59,23 @@ Content lives in typed data files, so no CMS is needed:
 | File | Content |
 | --- | --- |
 | `src/lib/site.ts` | Contact details, address, hours, social links, navigation |
-| `src/lib/services.ts` | Service pages, including their FAQs |
-| `src/lib/areas.ts` | Karachi area pages |
-| `src/lib/partners.ts` | Partner brands. Add logos to `public/partners/` and set `logo`. |
-| `src/lib/posts.ts` | Blog articles |
-| `src/lib/faqs.ts` | General FAQs |
+| `src/lib/company.ts` | About text, why choose us, methodology, stats, testimonials, company video |
+| `src/lib/services.ts` | Service pages |
+| `src/lib/systems.ts` | On-grid, off-grid and hybrid system descriptions |
+| `src/lib/partners.ts` | Partner brands and logo paths |
+| `src/lib/faqs.ts` | FAQs |
+| `src/lib/media.ts` | Photo slots. A photo only appears once its file exists in `public/`. |
 | `src/lib/solar.ts` | Calculator assumptions: yield per kW, panel wattage, etc. |
+
+## Photos & partner logos
+
+Photos and partner logos come from the old WordPress site. Run this once from a machine that can reach matenergy.com.pk, before the domain is switched to the new site, then commit the files:
+
+```bash
+npm run fetch-media
+```
+
+It saves the files into `public/partners/` and `public/images/site/` (see `scripts/fetch-live-media.mjs`). Until a file exists, its slot is hidden and partners show as text.
 
 ## Sitemap & IndexNow
 

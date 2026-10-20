@@ -1,42 +1,28 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
-import { JsonLd, PageHero } from "@/components/ui";
-import { faqJsonLd } from "@/lib/jsonld";
+import { PageHero } from "@/components/ui";
 import { CtaBand, FaqList } from "@/components/blocks";
 import { generalFaqs } from "@/lib/faqs";
-import { services } from "@/lib/services";
 
 export const metadata: Metadata = pageMeta({
-  title: "Solar FAQs Karachi | Cost, Net Metering, Batteries & Maintenance",
+  title: "Solar FAQs | Paperwork, Repairs, Cost & Battery Backup",
   description:
-    "Answers to common questions about solar panel installation in Karachi: system size, cost, net metering with K-Electric, hybrid batteries, warranties and maintenance.",
+    "Answers to common questions about solar in Karachi: paperwork for installation and net metering, repair costs, pricing, battery checks and backup time.",
   path: "/faqs/",
 });
 
 export default function FaqsPage() {
-  const all = [...generalFaqs, ...services.flatMap((s) => s.faqs)];
   return (
     <>
       <PageHero
         crumbs={[{ name: "FAQs", path: "/faqs/" }]}
-        eyebrow="FAQs"
-        title="Frequently asked questions about solar in Karachi"
-        intro="Everything you need to know before going solar, from system sizing to net metering and maintenance."
+        title="Frequently asked questions"
+        intro="The questions we usually get about solar. Don't see yours? Call or message us."
       />
-      <section className="container-x py-16 sm:py-24">
-        <div className="mx-auto max-w-4xl space-y-14">
-          <div>
-            <h2 className="mb-6 text-2xl font-bold">General</h2>
-            <FaqList faqs={generalFaqs} withSchema={false} />
-          </div>
-          {services.map((s) => (
-            <div key={s.slug}>
-              <h2 className="mb-6 text-2xl font-bold">{s.shortTitle}</h2>
-              <FaqList faqs={s.faqs} withSchema={false} />
-            </div>
-          ))}
+      <section className="container-x py-16 sm:py-20">
+        <div className="max-w-4xl">
+          <FaqList faqs={generalFaqs} />
         </div>
-        <JsonLd data={faqJsonLd(all)} />
       </section>
       <CtaBand />
     </>

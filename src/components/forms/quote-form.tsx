@@ -39,7 +39,7 @@ export function QuoteForm({ defaultSegment = "Residential" }: { defaultSegment?:
           {segments.map((s) => (
             <label
               key={s}
-              className="flex cursor-pointer items-center justify-center rounded-xl px-3 py-3 text-sm font-semibold text-ink-700 ring-1 ring-ink-200 transition has-checked:bg-brand-500 has-checked:text-white has-checked:ring-brand-500 has-focus-visible:ring-4 has-focus-visible:ring-brand-100"
+              className="flex cursor-pointer items-center justify-center rounded-md px-3 py-3 text-sm font-semibold text-ink-700 ring-1 ring-ink-200 transition has-checked:bg-brand-600 has-checked:text-white has-checked:ring-brand-600 has-focus-visible:ring-4 has-focus-visible:ring-brand-100"
             >
               <input type="radio" name="segment" value={s} defaultChecked={s === defaultSegment} className="sr-only" />
               {s === "Residential" ? "Home" : s}
@@ -99,7 +99,7 @@ export function QuoteForm({ defaultSegment = "Residential" }: { defaultSegment?:
       </div>
       <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-ink-400">We&apos;ll only use your details to respond to this request.</p>
-        <SubmitButton submitting={status === "submitting"}>Request free survey</SubmitButton>
+        <SubmitButton submitting={status === "submitting"}>Request a quote</SubmitButton>
       </div>
       <div className="sm:col-span-2">
         <FormError message={error} />

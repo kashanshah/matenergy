@@ -3,15 +3,14 @@ import Link from "next/link";
 import { AtSign, Clock, Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
-import { areas } from "@/lib/areas";
 
 const company = [
-  { href: "/about/", label: "About Mat Energy" },
-  { href: "/partners/", label: "Our Partners" },
-  { href: "/solar-calculator/", label: "Solar Savings Calculator" },
+  { href: "/about/", label: "About Us" },
+  { href: "/solar-systems/", label: "Solar Systems" },
+  { href: "/partners/", label: "Partners" },
+  { href: "/solar-calculator/", label: "Savings Calculator" },
   { href: "/faqs/", label: "FAQs" },
-  { href: "/blog/", label: "Blog" },
-  { href: "/contact/", label: "Contact" },
+  { href: "/contact/", label: "Contact Us" },
   { href: "/privacy-policy/", label: "Privacy Policy" },
 ];
 
@@ -28,24 +27,23 @@ export function Footer() {
             className="h-14 w-auto"
           />
           <p className="mt-5 max-w-sm leading-7 text-ink-500">
-            Solar panel installation for homes, businesses and industry across Karachi. Designed, installed and
-            supported by our own team.
+            MAT Energy solar energy services. Green energy saves the planet.
           </p>
         </div>
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-900">Services</h2>
+          <h2 className="text-sm font-semibold text-ink-900">Services</h2>
           <ul className="mt-5 space-y-3 text-sm">
             {services.map((s) => (
               <li key={s.slug}>
                 <Link href={`/services/${s.slug}/`} className="text-ink-500 hover:text-brand-700">
-                  {s.shortTitle}
+                  {s.name}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-900">Company</h2>
+          <h2 className="text-sm font-semibold text-ink-900">Company</h2>
           <ul className="mt-5 space-y-3 text-sm">
             {company.map((c) => (
               <li key={c.href}>
@@ -57,7 +55,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-900">Get in touch</h2>
+          <h2 className="text-sm font-semibold text-ink-900">Get in touch</h2>
           <ul className="mt-5 space-y-4 text-sm text-ink-600">
             <li className="flex gap-3">
               <MapPin className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
@@ -93,22 +91,8 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-ink-100">
-        <div className="container-x py-8">
-          <h2 className="text-sm font-semibold text-ink-900">Solar installation across Karachi</h2>
-          <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-            {areas.map((a) => (
-              <li key={a.slug}>
-                <Link href={`/solar-installation-karachi/${a.slug}/`} className="text-ink-500 hover:text-brand-700">
-                  Solar in {a.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-ink-100">
         <div className="container-x flex flex-col gap-2 py-6 text-xs text-ink-400 sm:flex-row sm:justify-between">
-          <p>© {site.name}. All rights reserved.</p>
+          <p>© {site.legalName} All rights reserved.</p>
           <p>{site.tagline}</p>
         </div>
       </div>

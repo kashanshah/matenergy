@@ -4,7 +4,7 @@ export const ogImage = {
   url: "/images/og-mat-energy.png",
   width: 1200,
   height: 630,
-  alt: "Mat Energy – Solar panel installation in Karachi for homes & industry",
+  alt: "MAT Energy – Solar panel installation in Karachi for homes & businesses",
 };
 
 /** Page metadata with canonical URL and Open Graph / Twitter tags kept in sync. */
@@ -12,7 +12,7 @@ export function pageMeta(opts: {
   title: string;
   description: string;
   path: string;
-  /** Skip the "| Mat Energy" title suffix (for titles that already contain the brand). */
+  /** Skip the "| MAT Energy" title suffix (for titles that already contain the brand). */
   absoluteTitle?: boolean;
   type?: "website" | "article";
   publishedTime?: string;
@@ -24,7 +24,7 @@ export function pageMeta(opts: {
     openGraph: {
       type: opts.type ?? "website",
       locale: "en_PK",
-      siteName: "Mat Energy",
+      siteName: "MAT Energy",
       title: opts.title,
       description: opts.description,
       url: opts.path,

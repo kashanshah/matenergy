@@ -1,5 +1,6 @@
 import { absoluteUrl } from "@/lib/site";
 import { services } from "@/lib/services";
+import { posts } from "@/lib/posts";
 
 export type SitemapEntry = {
   url: string;
@@ -21,6 +22,7 @@ export function sitemapEntries(): SitemapEntry[] {
     { path: "/contact/", priority: 0.7, changeFrequency: "yearly" },
     { path: "/partners/", priority: 0.6, changeFrequency: "monthly" },
     { path: "/faqs/", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/blog/", priority: 0.7, changeFrequency: "weekly" },
     { path: "/privacy-policy/", priority: 0.2, changeFrequency: "yearly" },
   ];
 
@@ -29,6 +31,12 @@ export function sitemapEntries(): SitemapEntry[] {
     ...services.map((s) => ({
       url: absoluteUrl(`/services/${s.slug}/`),
       priority: 0.9,
+      changeFrequency: "monthly" as const,
+    })),
+    ...posts.map((p) => ({
+      url: absoluteUrl(`/blog/${p.slug}/`),
+      lastModified: p.date,
+      priority: 0.7,
       changeFrequency: "monthly" as const,
     })),
   ];

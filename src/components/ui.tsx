@@ -103,10 +103,13 @@ export function PageHero({
   title,
   intro,
   photo,
+  longTitle = false,
   children,
 }: {
   crumbs: Crumb[];
   title: ReactNode;
+  /** Long titles (articles) step down one size on phones so they stay within two lines. */
+  longTitle?: boolean;
   intro?: ReactNode;
   photo?: { src: string; alt: string };
   children?: ReactNode;
@@ -117,7 +120,7 @@ export function PageHero({
         <Breadcrumbs items={crumbs} />
         <div className={`mt-10 grid gap-12 sm:mt-14 ${photo ? "lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-12" : ""}`}>
           <div data-reveal>
-            <h1 className="max-w-5xl text-head uppercase leading-[0.9]">{title}</h1>
+            <h1 className={`max-w-6xl uppercase leading-[0.9] ${longTitle ? "text-lead sm:text-head" : "text-head"}`}>{title}</h1>
             {intro && (
               <p className={`mt-8 max-w-[52ch] ${typeof intro === "string" && intro.length > 160 ? "" : "text-lead leading-[1.35]"}`}>{intro}</p>
             )}
